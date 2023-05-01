@@ -2196,7 +2196,7 @@ bool VPCALL idSIMD_Generic::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const
 	float *v, *ptr, *diagPtr;
 	double d, sum;
 
-	v = (float *) __builtin_alloca_with_align( n * sizeof( float ) , 16);
+	v = (float *) _alloca16( n * sizeof( float ) );
 	nc = mat.GetNumColumns();
 
 	for ( i = 0; i < n; i++ ) {

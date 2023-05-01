@@ -3623,9 +3623,9 @@ bool idMatX::Inverse_GaussJordan( void ) {
 
 	assert( numRows == numColumns );
 
-	int *columnIndex = (int *) __builtin_alloca_with_align( numRows * sizeof( int ) , 16);
-	int *rowIndex = (int *) __builtin_alloca_with_align( numRows * sizeof( int ) , 16);
-	bool *pivot = (bool *) __builtin_alloca_with_align( numRows * sizeof( bool ) , 16);
+	int *columnIndex = (int *) _alloca16( numRows * sizeof( int ) );
+	int *rowIndex = (int *) _alloca16( numRows * sizeof( int ) );
+	bool *pivot = (bool *) _alloca16( numRows * sizeof( bool ) );
 
 	memset( pivot, 0, numRows * sizeof( bool ) );
 
@@ -3952,8 +3952,8 @@ bool idMatX::LU_UpdateRankOne( const idVecX &v, const idVecX &w, float alpha, in
 	assert( v.GetSize() >= numColumns );
 	assert( w.GetSize() >= numRows );
 
-	y = (float *) __builtin_alloca_with_align( v.GetSize() * sizeof( float ) , 16);
-	z = (float *) __builtin_alloca_with_align( w.GetSize() * sizeof( float ) , 16);
+	y = (float *) _alloca16( v.GetSize() * sizeof( float ) );
+	z = (float *) _alloca16( w.GetSize() * sizeof( float ) );
 
 	if ( index != NULL ) {
 		for ( i = 0; i < numRows; i++ ) {
@@ -4052,10 +4052,10 @@ bool idMatX::LU_UpdateRowColumn( const idVecX &v, const idVecX &w, int r, int *i
 	assert( r >= 0 && r < numColumns && r < numRows );
 	assert( w[r] == 0.0f );
 
-	y0 = (float *) __builtin_alloca_with_align( v.GetSize() * sizeof( float ) , 16);
-	z0 = (float *) __builtin_alloca_with_align( w.GetSize() * sizeof( float ) , 16);
-	y1 = (float *) __builtin_alloca_with_align( v.GetSize() * sizeof( float ) , 16);
-	z1 = (float *) __builtin_alloca_with_align( w.GetSize() * sizeof( float ) , 16);
+	y0 = (float *) _alloca16( v.GetSize() * sizeof( float ) );
+	z0 = (float *) _alloca16( w.GetSize() * sizeof( float ) );
+	y1 = (float *) _alloca16( v.GetSize() * sizeof( float ) );
+	z1 = (float *) _alloca16( w.GetSize() * sizeof( float ) );
 
 	if ( index != NULL ) {
 		for ( i = 0; i < numRows; i++ ) {
@@ -5298,7 +5298,7 @@ bool idMatX::Cholesky_Factor( void ) {
 
 	assert( numRows == numColumns );
 
-	invSqrt = (float *) __builtin_alloca_with_align( numRows * sizeof( float ) , 16);
+	invSqrt = (float *) _alloca16( numRows * sizeof( float ) );
 
 	for ( i = 0; i < numRows; i++ ) {
 
@@ -5343,7 +5343,7 @@ bool idMatX::Cholesky_UpdateRankOne( const idVecX &v, float alpha, int offset ) 
 	assert( v.GetSize() >= numRows );
 	assert( offset >= 0 && offset < numRows );
 
-	y = (float *) __builtin_alloca_with_align( v.GetSize() * sizeof( float ) , 16);
+	y = (float *) _alloca16( v.GetSize() * sizeof( float ) );
 	memcpy( y, v.ToFloatPtr(), v.GetSize() * sizeof( float ) );
 
 	for ( i = offset; i < numColumns; i++ ) {
@@ -5399,7 +5399,7 @@ bool idMatX::Cholesky_UpdateRowColumn( const idVecX &v, int r ) {
 	assert( v.GetSize() >= numRows );
 	assert( r >= 0 && r < numRows );
 
-	addSub.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ), 16 ));
+	addSub.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
 
 	if ( r == 0 ) {
 
@@ -5420,8 +5420,8 @@ bool idMatX::Cholesky_UpdateRowColumn( const idVecX &v, int r ) {
 
 	} else {
 
-		original = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
-		y = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
+		original = (float *) _alloca16( numColumns * sizeof( float ) );
+		y = (float *) _alloca16( numColumns * sizeof( float ) );
 
 		// calculate original row/column of matrix
 		for ( i = 0; i < numRows; i++ ) {
@@ -5472,8 +5472,8 @@ bool idMatX::Cholesky_UpdateRowColumn( const idVecX &v, int r ) {
 	idVecX v1, v2;
 	double d;
 
-	v1.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) ) , 16);
-	v2.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) ) , 16);
+	v1.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
+	v2.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
 
 	d = idMath::SQRT_1OVER2;
 	v1[r] = ( 0.5f * addSub[r] + 1.0f ) * d;
@@ -5497,8 +5497,8 @@ bool idMatX::Cholesky_UpdateRowColumn( const idVecX &v, int r ) {
 	double diag, invDiag, diagSqr, newDiag, newDiagSqr;
 	double alpha1, alpha2, beta1, beta2, p1, p2, d;
 
-	v1 = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
-	v2 = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
+	v1 = (float *) _alloca16( numColumns * sizeof( float ) );
+	v2 = (float *) _alloca16( numColumns * sizeof( float ) );
 
 	d = idMath::SQRT_1OVER2;
 	v1[r] = ( 0.5f * addSub[r] + 1.0f ) * d;
@@ -5581,7 +5581,7 @@ bool idMatX::Cholesky_UpdateIncrement( const idVecX &v ) {
 
 	ChangeSize( numRows+1, numColumns+1, false );
 
-	x = (float *) __builtin_alloca_with_align( numRows * sizeof( float ) , 16);
+	x = (float *) _alloca16( numRows * sizeof( float ) );
 
 	// solve for x in L * x = v
 	for ( i = 0; i < numRows - 1; i++ ) {
@@ -5754,7 +5754,7 @@ bool idMatX::LDLT_Factor( void ) {
 
 	assert( numRows == numColumns );
 
-	v = (float *) __builtin_alloca_with_align( numRows * sizeof( float ) , 16);
+	v = (float *) _alloca16( numRows * sizeof( float ) );
 
 	for ( i = 0; i < numRows; i++ ) {
 
@@ -5801,7 +5801,7 @@ bool idMatX::LDLT_UpdateRankOne( const idVecX &v, float alpha, int offset ) {
 	assert( v.GetSize() >= numRows );
 	assert( offset >= 0 && offset < numRows );
 
-	y = (float *) __builtin_alloca_with_align( v.GetSize() * sizeof( float ) , 16);
+	y = (float *) _alloca16( v.GetSize() * sizeof( float ) );
 	memcpy( y, v.ToFloatPtr(), v.GetSize() * sizeof( float ) );
 
 	for ( i = offset; i < numColumns; i++ ) {
@@ -5854,7 +5854,7 @@ bool idMatX::LDLT_UpdateRowColumn( const idVecX &v, int r ) {
 	assert( v.GetSize() >= numRows );
 	assert( r >= 0 && r < numRows );
 
-	addSub.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16) );
+	addSub.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
 
 	if ( r == 0 ) {
 
@@ -5868,8 +5868,8 @@ bool idMatX::LDLT_UpdateRowColumn( const idVecX &v, int r ) {
 
 	} else {
 
-		original = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
-		y = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
+		original = (float *) _alloca16( numColumns * sizeof( float ) );
+		y = (float *) _alloca16( numColumns * sizeof( float ) );
 
 		// calculate original row/column of matrix
 		for ( i = 0; i < r; i++ ) {
@@ -5941,8 +5941,8 @@ bool idMatX::LDLT_UpdateRowColumn( const idVecX &v, int r ) {
 	idVecX v1, v2;
 	double d;
 
-	v1.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) ) , 16);
-	v2.SetData( numColumns, (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) ) , 16);
+	v1.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
+	v2.SetData( numColumns, (float *) _alloca16( numColumns * sizeof( float ) ) );
 
 	d = idMath::SQRT_1OVER2;
 	v1[r] = ( 0.5f * addSub[r] + 1.0f ) * d;
@@ -5965,8 +5965,8 @@ bool idMatX::LDLT_UpdateRowColumn( const idVecX &v, int r ) {
 	float *v1, *v2;
 	double d, diag, newDiag, p1, p2, alpha1, alpha2, beta1, beta2;
 
-	v1 = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
-	v2 = (float *) __builtin_alloca_with_align( numColumns * sizeof( float ) , 16);
+	v1 = (float *) _alloca16( numColumns * sizeof( float ) );
+	v2 = (float *) _alloca16( numColumns * sizeof( float ) );
 
 	d = idMath::SQRT_1OVER2;
 	v1[r] = ( 0.5f * addSub[r] + 1.0f ) * d;
@@ -6048,7 +6048,7 @@ bool idMatX::LDLT_UpdateIncrement( const idVecX &v ) {
 
 	ChangeSize( numRows+1, numColumns+1, false );
 
-	x = (float *) __builtin_alloca_with_align( numRows * sizeof( float ) , 16);
+	x = (float *) _alloca16( numRows * sizeof( float ) );
 
 	// solve for x in L * x = v
 	for ( i = 0; i < numRows - 1; i++ ) {
@@ -6214,7 +6214,7 @@ void idMatX::LDLT_MultiplyFactors( idMatX &m ) const {
 	float *v;
 	double sum;
 
-	v = (float *) __builtin_alloca_with_align( numRows * sizeof( float ) , 16);
+	v = (float *) _alloca16( numRows * sizeof( float ) );
 	m.SetSize( numRows, numColumns );
 
 	for ( r = 0; r < numRows; r++ ) {
@@ -7140,7 +7140,7 @@ float idMatX::DeterminantGeneric( void ) const {
 	float det;
 	idMatX tmp;
 
-	index = (int *) __builtin_alloca_with_align( numRows * sizeof( int ) , 16);
+	index = (int *) _alloca16( numRows * sizeof( int ) );
 	tmp.SetData( numRows, numColumns, MATX_ALLOCA( numRows * numColumns ) );
 	tmp = *this;
 
@@ -7161,7 +7161,7 @@ bool idMatX::InverseSelfGeneric( void ) {
 	idMatX tmp;
 	idVecX x, b;
 
-	index = (int *) __builtin_alloca_with_align( numRows * sizeof( int ) , 16);
+	index = (int *) _alloca16( numRows * sizeof( int ) );
 	tmp.SetData( numRows, numColumns, MATX_ALLOCA( numRows * numColumns ) );
 	tmp = *this;
 
@@ -7199,8 +7199,8 @@ void idMatX::Test( void ) {
 	original.Random( size, size, 0 );
 	original = original * original.Transpose();
 
-	index1 = (int *) __builtin_alloca_with_align( ( size + 1 ) * sizeof( index1[0] ) , 16);
-	index2 = (int *) __builtin_alloca_with_align( ( size + 1 ) * sizeof( index2[0] ) , 16);
+	index1 = (int *) _alloca16( ( size + 1 ) * sizeof( index1[0] ) );
+	index2 = (int *) _alloca16( ( size + 1 ) * sizeof( index2[0] ) );
 
 	/*
 		idMatX::LowerTriangularInverse
