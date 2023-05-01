@@ -152,10 +152,8 @@ dword PackColor( const idVec4 &color ) {
 	dz = ColorFloatToByte( color.z );
 	dw = ColorFloatToByte( color.w );
 
-#if defined(_WIN32) || defined(__linux__) || (defined(MACOS_X) && defined(__i386__))
+#if defined(_WIN32) || defined(__linux__) || defined(MACOS_X)
 	return ( dx << 0 ) | ( dy << 8 ) | ( dz << 16 ) | ( dw << 24 );
-#elif (defined(MACOS_X) && defined(__ppc__))
-	return ( dx << 24 ) | ( dy << 16 ) | ( dz << 8 ) | ( dw << 0 );
 #else
 #error OS define is required!
 #endif
@@ -167,16 +165,11 @@ UnpackColor
 ================
 */
 void UnpackColor( const dword color, idVec4 &unpackedColor ) {
-#if defined(_WIN32) || defined(__linux__) || (defined(MACOS_X) && defined(__i386__))
+#if defined(_WIN32) || defined(__linux__) || defined(MACOS_X)
 	unpackedColor.Set( ( ( color >> 0 ) & 255 ) * ( 1.0f / 255.0f ),
 						( ( color >> 8 ) & 255 ) * ( 1.0f / 255.0f ), 
 						( ( color >> 16 ) & 255 ) * ( 1.0f / 255.0f ),
 						( ( color >> 24 ) & 255 ) * ( 1.0f / 255.0f ) );
-#elif (defined(MACOS_X) && defined(__ppc__))
-	unpackedColor.Set( ( ( color >> 24 ) & 255 ) * ( 1.0f / 255.0f ),
-						( ( color >> 16 ) & 255 ) * ( 1.0f / 255.0f ), 
-						( ( color >> 8 ) & 255 ) * ( 1.0f / 255.0f ),
-						( ( color >> 0 ) & 255 ) * ( 1.0f / 255.0f ) );
 #else
 #error OS define is required!
 #endif
@@ -194,10 +187,8 @@ dword PackColor( const idVec3 &color ) {
 	dy = ColorFloatToByte( color.y );
 	dz = ColorFloatToByte( color.z );
 
-#if defined(_WIN32) || defined(__linux__) || (defined(MACOS_X) && defined(__i386__))
+#if defined(_WIN32) || defined(__linux__) || defined(MACOS_X)
 	return ( dx << 0 ) | ( dy << 8 ) | ( dz << 16 );
-#elif (defined(MACOS_X) && defined(__ppc__))
-	return ( dy << 16 ) | ( dz << 8 ) | ( dx << 0 );
 #else
 #error OS define is required!
 #endif
@@ -209,14 +200,10 @@ UnpackColor
 ================
 */
 void UnpackColor( const dword color, idVec3 &unpackedColor ) {
-#if defined(_WIN32) || defined(__linux__) || (defined(MACOS_X) && defined(__i386__))
+#if defined(_WIN32) || defined(__linux__) || defined(MACOS_X)
 	unpackedColor.Set( ( ( color >> 0 ) & 255 ) * ( 1.0f / 255.0f ),
 						( ( color >> 8 ) & 255 ) * ( 1.0f / 255.0f ), 
 						( ( color >> 16 ) & 255 ) * ( 1.0f / 255.0f ) );
-#elif (defined(MACOS_X) && defined(__ppc__))
-	unpackedColor.Set( ( ( color >> 16 ) & 255 ) * ( 1.0f / 255.0f ),
-						( ( color >> 8 ) & 255 ) * ( 1.0f / 255.0f ),
-						( ( color >> 0 ) & 255 ) * ( 1.0f / 255.0f ) );
 #else
 #error OS define is required!
 #endif
