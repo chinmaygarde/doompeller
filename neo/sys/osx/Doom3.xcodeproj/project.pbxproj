@@ -1322,8 +1322,13 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				BuildIndependentTargetsInParallel = YES;
 				ORGANIZATIONNAME = "id Software LLC";
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = F5T262WGN6;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = 8191F1640912BBCD006AB5A4 /* Build configuration list for PBXProject "Doom3" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1692,8 +1697,9 @@
 		8191F1610912BBCD006AB5A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = NO;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F5T262WGN6;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_FIX_AND_CONTINUE = YES;
@@ -1710,17 +1716,14 @@
 					"ID_ENABLE_CURL=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INSTALL_PATH = "$(HOME)/Applications";
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../curl/lib\"";
-				ONLY_ACTIVE_ARCH = YES;
-				OTHER_LDFLAGS = "";
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Doom 3";
-				SDKROOT = macosx;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
 			};
@@ -1729,8 +1732,9 @@
 		8191F1620912BBCD006AB5A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				COPY_PHASE_STRIP = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = F5T262WGN6;
 				FRAMEWORK_SEARCH_PATHS = "";
 				GCC_DYNAMIC_NO_PIC = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -1745,10 +1749,9 @@
 					"ID_ENABLE_CURL=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				GCC_VERSION = "";
 				INFOPLIST_FILE = Info.plist;
 				LIBRARY_SEARCH_PATHS = "\"$(SRCROOT)/../../curl/lib\"";
-				ONLY_ACTIVE_ARCH = YES;
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				OTHER_CFLAGS = (
 					"-finline",
 					"-finline-limit=1000",
@@ -1759,10 +1762,9 @@
 					"$(OTHER_CFLAGS)",
 					"-fpermissive",
 				);
-				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				PRODUCT_NAME = "Doom 3";
-				SDKROOT = macosx;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SYMROOT = build;
 				WRAPPER_EXTENSION = app;
 				ZERO_LINK = NO;
@@ -1772,11 +1774,6 @@
 		8191F1650912BBCD006AB5A4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_ONE_BYTE_BOOL = YES;
-				GCC_OPTIMIZATION_LEVEL = 1;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(MAIN_CPP_DEFINES)",
 					MACOS_X,
@@ -1787,19 +1784,13 @@
 					"$(OTHER_CFLAGS)",
 					"-fpermissive",
 				);
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = i386;
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
 		8191F1660912BBCD006AB5A4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_DYNAMIC_NO_PIC = YES;
-				GCC_MODEL_TUNING = "";
-				GCC_ONE_BYTE_BOOL = YES;
-				GCC_OPTIMIZATION_LEVEL = 3;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(MAIN_CPP_DEFINES)",
 					MACOS_X,
@@ -1815,8 +1806,7 @@
 					"-fomit-frame-pointer",
 					"-fno-common",
 				);
-				SDKROOT = macosx10.5;
-				VALID_ARCHS = i386;
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
