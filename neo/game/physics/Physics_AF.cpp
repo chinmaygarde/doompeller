@@ -5061,8 +5061,8 @@ void idPhysics_AF::AuxiliaryForces( float timeStep ) {
 	}
 
 	// allocate memory to store the body response to auxiliary constraint forces
-	forcePtr = (float *) _alloca16( bodies.Num() * numAuxConstraints * 8 * sizeof( float ) );
-	index = (int *) _alloca16( bodies.Num() * numAuxConstraints * sizeof( int ) );
+	forcePtr = (float *) __builtin_alloca_with_align( bodies.Num() * numAuxConstraints * 8 * sizeof( float ), 16 );
+	index = (int *) __builtin_alloca_with_align( bodies.Num() * numAuxConstraints * sizeof( int ), 16 );
 	for ( i = 0; i < bodies.Num(); i++ ) {
 		body = bodies[i];
 		body->response = forcePtr;

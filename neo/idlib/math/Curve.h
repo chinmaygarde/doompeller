@@ -205,8 +205,8 @@ ID_INLINE float idCurve<type>::RombergIntegral( const float t0, const float t1, 
 	float sum, delta;
 	float *temp[2];
 
-	temp[0] = (float *) _alloca16( order * sizeof( float ) );
-	temp[1] = (float *) _alloca16( order * sizeof( float ) );
+	temp[0] = (float *) __builtin_alloca_with_align(( order * sizeof( float ) ), 16);
+	temp[1] = (float *) __builtin_alloca_with_align(( order * sizeof( float ) ), 16);
 
 	delta = t1 - t0;
 	temp[0][0] = 0.5f * delta * ( GetSpeed( t0 ) + GetSpeed( t1 ) );
@@ -276,7 +276,7 @@ ID_INLINE float idCurve<type>::GetTimeForLength( const float length, const float
 		return times[0];
 	}
 
-	accumLength = (float *) _alloca16( values.Num() * sizeof( float ) );
+	accumLength = (float *) __builtin_alloca_with_align(( values.Num() * sizeof( float ) ), 16);
 	totalLength = 0.0f;
 	for ( index = 0; index < values.Num() - 1; index++ ) {
 		totalLength += GetLengthBetweenKnots( index, index + 1 );
@@ -590,7 +590,7 @@ ID_INLINE void idCurve_Bezier<type>::Basis( const int order, const float t, floa
 		return;
 	}
 
-	c = (float *) _alloca16( (d+1) * sizeof( float ) );
+	c = (float *) __builtin_alloca_with_align(( (d+1) * sizeof( float ) ), 16);
 	s = (float) ( t - this->times[0] ) / ( this->times[this->times.Num()-1] - this->times[0] );
     o = 1.0f - s;
 	ps = s;
@@ -2177,7 +2177,7 @@ ID_INLINE type idCurve_NonUniformBSpline<type>::GetCurrentValue( const float tim
 	int i, j, k;
 	float clampedTime;
 	type v;
-	float *bvals = (float *) _alloca16( this->order * sizeof(float) );
+	float *bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	if ( this->times.Num() == 1 ) {
 		return this->values[0];
@@ -2206,7 +2206,7 @@ ID_INLINE type idCurve_NonUniformBSpline<type>::GetCurrentFirstDerivative( const
 	int i, j, k;
 	float clampedTime;
 	type v;
-	float *bvals = (float *) _alloca16( this->order * sizeof(float) );
+	float *bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	if ( this->times.Num() == 1 ) {
 		return ( this->values[0] - this->values[0] );
@@ -2235,7 +2235,7 @@ ID_INLINE type idCurve_NonUniformBSpline<type>::GetCurrentSecondDerivative( cons
 	int i, j, k;
 	float clampedTime;
 	type v;
-	float *bvals = (float *) _alloca16( this->order * sizeof(float) );
+	float *bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	if ( this->times.Num() == 1 ) {
 		return ( this->values[0] - this->values[0] );
@@ -2411,7 +2411,7 @@ ID_INLINE type idCurve_NURBS<type>::GetCurrentValue( const float time ) const {
 		return this->values[0];
 	}
 
-	bvals = (float *) _alloca16( this->order * sizeof(float) );
+	bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	clampedTime = this->ClampedTime( time );
 	i = this->IndexForTime( clampedTime );
@@ -2444,8 +2444,8 @@ ID_INLINE type idCurve_NURBS<type>::GetCurrentFirstDerivative( const float time 
 		return this->values[0];
 	}
 
-	bvals = (float *) _alloca16( this->order * sizeof(float) );
-	d1vals = (float *) _alloca16( this->order * sizeof(float) );
+	bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
+	d1vals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	clampedTime = this->ClampedTime( time );
 	i = this->IndexForTime( clampedTime );
@@ -2484,9 +2484,9 @@ ID_INLINE type idCurve_NURBS<type>::GetCurrentSecondDerivative( const float time
 		return this->values[0];
 	}
 
-	bvals = (float *) _alloca16( this->order * sizeof(float) );
-	d1vals = (float *) _alloca16( this->order * sizeof(float) );
-	d2vals = (float *) _alloca16( this->order * sizeof(float) );
+	bvals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
+	d1vals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
+	d2vals = (float *) __builtin_alloca_with_align(( this->order * sizeof(float) ), 16);
 
 	clampedTime = this->ClampedTime( time );
 	i = this->IndexForTime( clampedTime );

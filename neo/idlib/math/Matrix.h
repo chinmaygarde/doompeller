@@ -1780,7 +1780,7 @@ ID_INLINE float *idMat6::ToFloatPtr( void ) {
 #define MATX_MAX_TEMP		1024
 #define MATX_QUAD( x )		( ( ( ( x ) + 3 ) & ~3 ) * sizeof( float ) )
 #define MATX_CLEAREND()		int s = numRows * numColumns; while( s < ( ( s + 3 ) & ~3 ) ) { mat[s++] = 0.0f; }
-#define MATX_ALLOCA( n )	( (float *) _alloca16( MATX_QUAD( n ) ) )
+#define MATX_ALLOCA( n )	( (float *) __builtin_alloca_with_align( MATX_QUAD( n ), 16 ) )
 #define MATX_SIMD
 
 class idMatX {
@@ -2280,7 +2280,7 @@ ID_INLINE void idMatX::SetData( int rows, int columns, float *data ) {
 	if ( mat != NULL && alloced != -1 ) {
 		Mem_Free16( mat );
 	}
-	assert( ( ( (int) data ) & 15 ) == 0 ); // data must be 16 byte aligned
+	assert( ( ( (int64_t) data ) & 15 ) == 0 ); // data must be 16 byte aligned
 	mat = data;
 	alloced = -1;
 	numRows = rows;
@@ -2381,8 +2381,8 @@ ID_INLINE void idMatX::Clamp( float min, float max ) {
 
 ID_INLINE idMatX &idMatX::SwapRows( int r1, int r2 ) {
 	float *ptr;
-
-	ptr = (float *) _alloca16( numColumns * sizeof( float ) );
+    
+	ptr = (float *) __builtin_alloca_with_align(( numColumns * sizeof( float ) ), 16);
 	memcpy( ptr, mat + r1 * numColumns, numColumns * sizeof( float ) );
 	memcpy( mat + r1 * numColumns, mat + r2 * numColumns, numColumns * sizeof( float ) );
 	memcpy( mat + r2 * numColumns, ptr, numColumns * sizeof( float ) );

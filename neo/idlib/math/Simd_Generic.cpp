@@ -2015,8 +2015,8 @@ bool VPCALL idSIMD_Generic::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const
 	float *v, *diag, *mptr;
 	double s0, s1, s2, s3, sum, d;
 
-	v = (float *) _alloca16( n * sizeof( float ) );
-	diag = (float *) _alloca16( n * sizeof( float ) );
+	v = (float *) __builtin_alloca_with_align( n * sizeof( float ), 16 );
+	diag = (float *) __builtin_alloca_with_align( n * sizeof( float ), 16 );
 
 	nc = mat.GetNumColumns();
 
@@ -2493,7 +2493,7 @@ idSIMD_Generic::DeriveTangents
 void VPCALL idSIMD_Generic::DeriveTangents( idPlane *planes, idDrawVert *verts, const int numVerts, const int *indexes, const int numIndexes ) {
 	int i;
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ), 16 );
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	idPlane *planesPtr = planes;
@@ -2715,7 +2715,7 @@ idSIMD_Generic::CreateTextureSpaceLightVectors
 */
 void VPCALL idSIMD_Generic::CreateTextureSpaceLightVectors( idVec3 *lightVectors, const idVec3 &lightOrigin, const idDrawVert *verts, const int numVerts, const int *indexes, const int numIndexes ) {
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ), 16 );
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	for ( int i = numIndexes - 1; i >= 0; i-- ) {
@@ -2749,7 +2749,7 @@ idSIMD_Generic::CreateSpecularTextureCoords
 */
 void VPCALL idSIMD_Generic::CreateSpecularTextureCoords( idVec4 *texCoords, const idVec3 &lightOrigin, const idVec3 &viewOrigin, const idDrawVert *verts, const int numVerts, const int *indexes, const int numIndexes ) {
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ), 16 );
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	for ( int i = numIndexes - 1; i >= 0; i-- ) {

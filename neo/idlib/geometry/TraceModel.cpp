@@ -920,7 +920,7 @@ void idTraceModel::SetupPolygon( const idWinding &w ) {
 	int i;
 	idVec3 *verts;
 
-	verts = (idVec3 *) _alloca16( w.GetNumPoints() * sizeof( idVec3 ) );
+	verts = (idVec3 *) __builtin_alloca_with_align(( w.GetNumPoints() * sizeof( idVec3 ) ), 16);
 	for ( i = 0; i < w.GetNumPoints(); i++ ) {
 		verts[i] = w[i].ToVec3();
 	}

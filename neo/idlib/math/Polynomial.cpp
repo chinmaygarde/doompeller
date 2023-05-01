@@ -95,7 +95,7 @@ int idPolynomial::GetRoots( idComplex *roots ) const {
 	int i, j;
 	idComplex x, b, c, *coef;
 
-	coef = (idComplex *) _alloca16( ( degree + 1 ) * sizeof( idComplex ) );
+	coef = (idComplex *) __builtin_alloca_with_align( ( degree + 1 ) * sizeof( idComplex ), 16 );
 	for ( i = 0; i <= degree; i++ ) {
 		coef[i].Set( coefficient[i], 0.0f );
 	}
@@ -158,7 +158,7 @@ int idPolynomial::GetRoots( float *roots ) const {
 	// A polynomial equation can be solved by radicals if and only if
 	// its Galois group is a solvable group.
 
-	complexRoots = (idComplex *) _alloca16( degree * sizeof( idComplex ) );
+	complexRoots = (idComplex *) __builtin_alloca_with_align( degree * sizeof( idComplex ), 16 );
 
 	GetRoots( complexRoots );
 

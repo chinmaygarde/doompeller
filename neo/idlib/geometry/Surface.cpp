@@ -608,9 +608,9 @@ bool idSurface::IsConnected( void ) const {
 
 	numIslands = 0;
 	numTris = indexes.Num() / 3;
-	islandNum = (int *) _alloca16( numTris * sizeof( int ) );
+	islandNum = (int *) __builtin_alloca_with_align(( numTris * sizeof( int ) ), 16);
 	memset( islandNum, -1, numTris * sizeof( int ) );
-	queue = (int *) _alloca16( numTris * sizeof( int ) );
+	queue = (int *) __builtin_alloca_with_align(( numTris * sizeof( int ) ), 16);
 
 	for ( i = 0; i < numTris; i++ ) {
 
@@ -843,9 +843,9 @@ void idSurface::GenerateEdgeIndexes( void ) {
 	int *index, *vertexEdges, *edgeChain;
 	surfaceEdge_t e[3];
 
-	vertexEdges = (int *) _alloca16( verts.Num() * sizeof( int ) );
+	vertexEdges = (int *) __builtin_alloca_with_align(( verts.Num() * sizeof( int ) ), 16);
 	memset( vertexEdges, -1, verts.Num() * sizeof( int ) );
-	edgeChain = (int *) _alloca16( indexes.Num() * sizeof( int ) );
+	edgeChain = (int *) __builtin_alloca_with_align(( indexes.Num() * sizeof( int ) ), 16);
 
 	edgeIndexes.SetNum( indexes.Num(), true );
 

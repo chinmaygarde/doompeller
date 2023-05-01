@@ -281,7 +281,7 @@ idWinding *idWinding::Clip( const idPlane &plane, const float epsilon, const boo
 
 	maxpts = numPoints + 4;		// cant use counts[0]+2 because of fp grouping errors
 
-	newPoints = (idVec5 *) _alloca16( maxpts * sizeof( idVec5 ) );
+	newPoints = (idVec5 *) __builtin_alloca_with_align(( maxpts * sizeof( idVec5 ) ), 16);
 	newNumPoints = 0;
 		
 	for ( i = 0; i < numPoints; i++ ) {
@@ -396,7 +396,7 @@ bool idWinding::ClipInPlace( const idPlane &plane, const float epsilon, const bo
 
 	maxpts = numPoints + 4;		// cant use counts[0]+2 because of fp grouping errors
 
-	newPoints = (idVec5 *) _alloca16( maxpts * sizeof( idVec5 ) );
+	newPoints = (idVec5 *) __builtin_alloca_with_align(( maxpts * sizeof( idVec5 ) ), 16);
 	newNumPoints = 0;
 
 	for ( i = 0; i < numPoints; i++ ) {
