@@ -79,7 +79,7 @@ void idDict::Copy( const idDict &other ) {
 	n = other.args.Num();
 
 	if ( args.Num() ) {
-		found = (int *) _alloca16( other.args.Num() * sizeof( int ) );
+		found = (int *) __builtin_alloca_with_align( other.args.Num() * sizeof( int ) , 16);
         for ( i = 0; i < n; i++ ) {
 			found[i] = FindKeyIndex( other.args[i].GetKey() );
 		}

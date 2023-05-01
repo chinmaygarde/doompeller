@@ -139,7 +139,7 @@ MMX_Memcpy2kB
 ================
 */
 void MMX_Memcpy2kB( void *dest, const void *src, const int count ) {
-	byte *tbuf = (byte *)_alloca16(2048);
+	byte *tbuf = (byte *)__builtin_alloca_with_align(2048, 16);
 	__asm { 
 		push	ebx
         mov		esi, src

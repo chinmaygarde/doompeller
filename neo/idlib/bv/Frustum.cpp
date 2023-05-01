@@ -451,8 +451,8 @@ bool idFrustum::CullWinding( const idWinding &winding ) const {
 	idVec3 *localPoints;
 	idMat3 transpose;
 
-	localPoints = (idVec3 *) _alloca16( winding.GetNumPoints() * sizeof( idVec3 ) );
-	pointCull = (int *) _alloca16( winding.GetNumPoints() * sizeof( int ) );
+	localPoints = (idVec3 *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( idVec3 ) , 16);
+	pointCull = (int *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( int ) , 16);
 
 	transpose = axis.Transpose();
 	for ( i = 0; i < winding.GetNumPoints(); i++ ) {
@@ -1106,8 +1106,8 @@ bool idFrustum::IntersectsWinding( const idWinding &winding ) const {
 	idMat3 transpose;
 	idPlane plane;
 
-	localPoints = (idVec3 *) _alloca16( winding.GetNumPoints() * sizeof( idVec3 ) );
-	pointCull = (int *) _alloca16( winding.GetNumPoints() * sizeof( int ) );
+	localPoints = (idVec3 *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( idVec3 ) , 16);
+	pointCull = (int *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( int ) , 16);
 
 	transpose = axis.Transpose();
 	for ( i = 0; i < winding.GetNumPoints(); i++ ) {
@@ -2326,7 +2326,7 @@ bool idFrustum::ProjectionBounds( const idWinding &winding, idBounds &projection
 	projectionBounds.Clear();
 
 	// transform the winding points into the space of this frustum
-	localPoints = (idVec3 *) _alloca16( winding.GetNumPoints() * sizeof( idVec3 ) );
+	localPoints = (idVec3 *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( idVec3 ) , 16);
 	transpose = axis.Transpose();
 	for ( i = 0; i < winding.GetNumPoints(); i++ ) {
 		localPoints[i] = ( winding[i].ToVec3() - origin ) * transpose;
@@ -2335,7 +2335,7 @@ bool idFrustum::ProjectionBounds( const idWinding &winding, idBounds &projection
 	// test the winding edges
 	culled = -1;
 	outside = 0;
-	pointCull = (int *) _alloca16( winding.GetNumPoints() * sizeof( int ) );
+	pointCull = (int *) __builtin_alloca_with_align( winding.GetNumPoints() * sizeof( int ) , 16);
 	for ( i = 0; i < winding.GetNumPoints(); i += 2 ) {
 		p1 = i;
 		p2 = (i+1)%winding.GetNumPoints();

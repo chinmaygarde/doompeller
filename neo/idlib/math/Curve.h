@@ -336,7 +336,7 @@ ID_INLINE void idCurve<type>::SetConstantSpeed( const float totalTime ) {
 	int i, j;
 	float *length, totalLength, scale, t;
 
-	length = (float *) _alloca16( values.Num() * sizeof( float ) );
+	length = (float *) __builtin_alloca_with_align( values.Num() * sizeof( float ) , 16);
 	totalLength = 0.0f;
 	for ( i = 0; i < values.Num() - 1; i++ ) {
 		length[i] = GetLengthBetweenKnots( i, i + 1 );
@@ -514,7 +514,7 @@ ID_INLINE type idCurve_Bezier<type>::GetCurrentValue( const float time ) const {
 	float *bvals;
 	type v;
 
-	bvals = (float *) _alloca16( this->values.Num() * sizeof( float ) );
+	bvals = (float *) __builtin_alloca_with_align( this->values.Num() * sizeof( float ) , 16);
 
 	Basis( this->values.Num(), time, bvals );
 	v = bvals[0] * this->values[0];
@@ -537,7 +537,7 @@ ID_INLINE type idCurve_Bezier<type>::GetCurrentFirstDerivative( const float time
 	float *bvals, d;
 	type v;
 
-	bvals = (float *) _alloca16( this->values.Num() * sizeof( float ) );
+	bvals = (float *) __builtin_alloca_with_align( this->values.Num() * sizeof( float ) , 16);
 
 	BasisFirstDerivative( this->values.Num(), time, bvals );
 	v = bvals[0] * this->values[0];
@@ -561,7 +561,7 @@ ID_INLINE type idCurve_Bezier<type>::GetCurrentSecondDerivative( const float tim
 	float *bvals, d;
 	type v;
 
-	bvals = (float *) _alloca16( this->values.Num() * sizeof( float ) );
+	bvals = (float *) __builtin_alloca_with_align( this->values.Num() * sizeof( float ) , 16);
 
 	BasisSecondDerivative( this->values.Num(), time, bvals );
 	v = bvals[0] * this->values[0];
@@ -1170,12 +1170,12 @@ ID_INLINE void idCurve_NaturalCubicSpline<type>::SetupFree( void ) const {
 	float *d0, *d1, *beta, *gamma;
 	type *alpha, *delta;
 
-	d0 = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	d1 = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	alpha = (type *) _alloca16( ( this->values.Num() - 1 ) * sizeof( type ) );
-	beta = (float *) _alloca16( this->values.Num() * sizeof( float ) );
-	gamma = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	delta = (type *) _alloca16( this->values.Num() * sizeof( type ) );
+	d0 = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	d1 = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	alpha = (type *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( type ) , 16);
+	beta = (float *) __builtin_alloca_with_align( this->values.Num() * sizeof( float ) , 16);
+	gamma = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	delta = (type *) __builtin_alloca_with_align( this->values.Num() * sizeof( type ) , 16);
 
 	for ( i = 0; i < this->values.Num() - 1; i++ ) {
 		d0[i] = this->times[i+1] - this->times[i];
@@ -1230,12 +1230,12 @@ ID_INLINE void idCurve_NaturalCubicSpline<type>::SetupClamped( void ) const {
 	float *d0, *d1, *beta, *gamma;
 	type *alpha, *delta;
 
-	d0 = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	d1 = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	alpha = (type *) _alloca16( ( this->values.Num() - 1 ) * sizeof( type ) );
-	beta = (float *) _alloca16( this->values.Num() * sizeof( float ) );
-	gamma = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
-	delta = (type *) _alloca16( this->values.Num() * sizeof( type ) );
+	d0 = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	d1 = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	alpha = (type *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( type ) , 16);
+	beta = (float *) __builtin_alloca_with_align( this->values.Num() * sizeof( float ) , 16);
+	gamma = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
+	delta = (type *) __builtin_alloca_with_align( this->values.Num() * sizeof( type ) , 16);
 
 	for ( i = 0; i < this->values.Num() - 1; i++ ) {
 		d0[i] = this->times[i+1] - this->times[i];
@@ -1299,7 +1299,7 @@ ID_INLINE void idCurve_NaturalCubicSpline<type>::SetupClosed( void ) const {
 	idMatX mat;
 	idVecX x;
 
-	d0 = (float *) _alloca16( ( this->values.Num() - 1 ) * sizeof( float ) );
+	d0 = (float *) __builtin_alloca_with_align( ( this->values.Num() - 1 ) * sizeof( float ) , 16);
 	x.SetData( this->values.Num(), VECX_ALLOCA( this->values.Num() ) );
 	mat.SetData( this->values.Num(), this->values.Num(), MATX_ALLOCA( this->values.Num() * this->values.Num() ) );
 

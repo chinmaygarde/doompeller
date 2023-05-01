@@ -225,10 +225,10 @@ void idLCP_Square::RemoveClamped( int r ) {
 		return;
 	}
 
-	y0 = (float *) _alloca16( numClamped * sizeof( float ) );
-	z0 = (float *) _alloca16( numClamped * sizeof( float ) );
-	y1 = (float *) _alloca16( numClamped * sizeof( float ) );
-	z1 = (float *) _alloca16( numClamped * sizeof( float ) );
+	y0 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
+	z0 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
+	y1 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
+	z1 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 
 	// the row/column need to be subtracted from the factorization
 	for ( i = 0; i < numClamped; i++ ) {
@@ -350,7 +350,7 @@ ID_INLINE void idLCP_Square::CalcForceDelta( int d, float dir ) {
 	}
 
 	// get column d of matrix
-	ptr = (float *) _alloca16( numClamped * sizeof( float ) );
+	ptr = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 	for ( i = 0; i < numClamped; i++ ) {
 		ptr[i] = rowPtrs[i][d];
 	}
@@ -525,7 +525,7 @@ bool idLCP_Square::Solve( const idMatX &o_m, idVecX &o_x, const idVecX &o_b, con
 	lo.SetData( o_lo.GetSize(), VECX_ALLOCA( o_lo.GetSize() ) );
 	hi.SetData( o_hi.GetSize(), VECX_ALLOCA( o_hi.GetSize() ) );
 	if ( o_boxIndex ) {
-		boxIndex = (int *)_alloca16( o_x.GetSize() * sizeof( int ) );
+		boxIndex = (int *)__builtin_alloca_with_align( o_x.GetSize() * sizeof( int ) , 16);
 		memcpy( boxIndex, o_boxIndex, o_x.GetSize() * sizeof( int ) );
 	} else {
 		boxIndex = NULL;
@@ -540,16 +540,16 @@ bool idLCP_Square::Solve( const idMatX &o_m, idVecX &o_x, const idVecX &o_b, con
 	hi = o_hi;
 
 	// pointers to the rows of m
-	rowPtrs = (float **) _alloca16( m.GetNumRows() * sizeof( float * ) );
+	rowPtrs = (float **) __builtin_alloca_with_align( m.GetNumRows() * sizeof( float * ) , 16);
 	for ( i = 0; i < m.GetNumRows(); i++ ) {
 		rowPtrs[i] = m[i];
 	}
 
 	// tells if a variable is at the low boundary, high boundary or inbetween
-	side = (int *) _alloca16( m.GetNumRows() * sizeof( int ) );
+	side = (int *) __builtin_alloca_with_align( m.GetNumRows() * sizeof( int ) , 16);
 
 	// index to keep track of the permutation
-	permuted = (int *) _alloca16( m.GetNumRows() * sizeof( int ) );
+	permuted = (int *) __builtin_alloca_with_align( m.GetNumRows() * sizeof( int ) , 16);
 	for ( i = 0; i < m.GetNumRows(); i++ ) {
 		permuted[i] = i;
 	}
@@ -925,7 +925,7 @@ void idLCP_Symmetric::AddClamped( int r, bool useSolveCache ) {
 
 	} else {
 
-		float *v = (float *) _alloca16( numClamped * sizeof( float ) );
+		float *v = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 
 		SIMDProcessor->MatX_LowerTriangularSolve( clamped, v, rowPtrs[numClamped], numClamped );
 		// add bottom row to L
@@ -976,7 +976,7 @@ void idLCP_Symmetric::RemoveClamped( int r ) {
 	Swap( r, numClamped );
 
 	// update the factored matrix
-	addSub = (float *) _alloca16( numClamped * sizeof( float ) );
+	addSub = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 
 	if ( r == 0 ) {
 
@@ -1001,7 +1001,7 @@ void idLCP_Symmetric::RemoveClamped( int r ) {
 
 	} else {
 
-		v = (float *) _alloca16( numClamped * sizeof( float ) );
+		v = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 
 		// solve for v in L * v = rowPtr[r]
 		SIMDProcessor->MatX_LowerTriangularSolve( clamped, v, rowPtrs[r], r );
@@ -1043,8 +1043,8 @@ void idLCP_Symmetric::RemoveClamped( int r ) {
 
 	// add row/column to the lower right sub matrix starting at (r, r)
 
-	v1 = (float *) _alloca16( numClamped * sizeof( float ) );
-	v2 = (float *) _alloca16( numClamped * sizeof( float ) );
+	v1 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
+	v2 = (float *) __builtin_alloca_with_align( numClamped * sizeof( float ) , 16);
 
 	diag = idMath::SQRT_1OVER2;
 	v1[r] = ( 0.5f * addSub[r] + 1.0f ) * diag;
@@ -1315,7 +1315,7 @@ bool idLCP_Symmetric::Solve( const idMatX &o_m, idVecX &o_x, const idVecX &o_b, 
 	lo.SetData( o_lo.GetSize(), VECX_ALLOCA( o_lo.GetSize() ) );
 	hi.SetData( o_hi.GetSize(), VECX_ALLOCA( o_hi.GetSize() ) );
 	if ( o_boxIndex ) {
-		boxIndex = (int *)_alloca16( o_x.GetSize() * sizeof( int ) );
+		boxIndex = (int *)__builtin_alloca_with_align( o_x.GetSize() * sizeof( int ) , 16);
 		memcpy( boxIndex, o_boxIndex, o_x.GetSize() * sizeof( int ) );
 	} else {
 		boxIndex = NULL;
@@ -1330,16 +1330,16 @@ bool idLCP_Symmetric::Solve( const idMatX &o_m, idVecX &o_x, const idVecX &o_b, 
 	hi = o_hi;
 
 	// pointers to the rows of m
-	rowPtrs = (float **) _alloca16( m.GetNumRows() * sizeof( float * ) );
+	rowPtrs = (float **) __builtin_alloca_with_align( m.GetNumRows() * sizeof( float * ) , 16);
 	for ( i = 0; i < m.GetNumRows(); i++ ) {
 		rowPtrs[i] = m[i];
 	}
 
 	// tells if a variable is at the low boundary, high boundary or inbetween
-	side = (int *) _alloca16( m.GetNumRows() * sizeof( int ) );
+	side = (int *) __builtin_alloca_with_align( m.GetNumRows() * sizeof( int ) , 16);
 
 	// index to keep track of the permutation
-	permuted = (int *) _alloca16( m.GetNumRows() * sizeof( int ) );
+	permuted = (int *) __builtin_alloca_with_align( m.GetNumRows() * sizeof( int ) , 16);
 	for ( i = 0; i < m.GetNumRows(); i++ ) {
 		permuted[i] = i;
 	}

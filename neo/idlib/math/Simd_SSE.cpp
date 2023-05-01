@@ -10825,8 +10825,8 @@ bool VPCALL idSIMD_SSE::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const int
 	float *v, *diag, *invDiagPtr, *mptr;
 	double s0, s1, s2, sum, d;
 
-	v = (float *) _alloca16( n * sizeof( float ) );
-	diag = (float *) _alloca16( n * sizeof( float ) );
+	v = (float *) __builtin_alloca_with_align( n * sizeof( float ) , 16);
+	diag = (float *) __builtin_alloca_with_align( n * sizeof( float ) , 16);
 	invDiagPtr = invDiag.ToFloatPtr();
 
 	nc = mat.GetNumColumns();
@@ -11100,8 +11100,8 @@ bool VPCALL idSIMD_SSE::MatX_LDLTFactor( idMatX &mat, idVecX &invDiag, const int
 	float *v, *diag, *mptr;
 	double s0, s1, s2, s3, sum, d;
 
-	v = (float *) _alloca16( n * sizeof( float ) );
-	diag = (float *) _alloca16( n * sizeof( float ) );
+	v = (float *) __builtin_alloca_with_align( n * sizeof( float ) , 16);
+	diag = (float *) __builtin_alloca_with_align( n * sizeof( float ) , 16);
 
 	nc = mat.GetNumColumns();
 
@@ -13659,7 +13659,7 @@ void VPCALL idSIMD_SSE::DeriveTangents( idPlane *planes, idDrawVert *verts, cons
 	}
 #endif
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ) , 16);
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	for ( i = 0; i <= numIndexes - 12; i += 12 ) {
@@ -15553,7 +15553,7 @@ void VPCALL idSIMD_SSE::CreateTextureSpaceLightVectors( idVec3 *lightVectors, co
 	assert( (int)&((idDrawVert *)0)->tangents[0] == DRAWVERT_TANGENT0_OFFSET );
 	assert( (int)&((idDrawVert *)0)->tangents[1] == DRAWVERT_TANGENT1_OFFSET );
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ) , 16);
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	for ( int i = numIndexes - 1; i >= 0; i-- ) {
@@ -15981,7 +15981,7 @@ void VPCALL idSIMD_SSE::CreateSpecularTextureCoords( idVec4 *texCoords, const id
 	assert( (int)&((idDrawVert *)0)->tangents[0] == DRAWVERT_TANGENT0_OFFSET );
 	assert( (int)&((idDrawVert *)0)->tangents[1] == DRAWVERT_TANGENT1_OFFSET );
 
-	bool *used = (bool *)_alloca16( numVerts * sizeof( used[0] ) );
+	bool *used = (bool *)__builtin_alloca_with_align( numVerts * sizeof( used[0] ) , 16);
 	memset( used, 0, numVerts * sizeof( used[0] ) );
 
 	for ( int i = numIndexes - 1; i >= 0; i-- ) {
