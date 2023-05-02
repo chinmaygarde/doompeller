@@ -1036,7 +1036,7 @@ int idDeclManagerLocal::GetChecksum( void ) const {
 		total += linearLists[i].Num();
 	}
 
-	checksumData = (int *) _alloca16( total * 2 * sizeof( int ) );
+	checksumData = (int *) alloca( total * 2 * sizeof( int ) );
 
 	total = 0;
 	for ( i = 0; i < DECL_MAX_TYPES; i++ ) {

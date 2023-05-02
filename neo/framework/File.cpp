@@ -1346,7 +1346,7 @@ int idFile_InZip::Seek( long offset, fsOrigin_t origin ) {
 			}
 		}
 		case FS_SEEK_CUR: {
-			buf = (char *) _alloca16( ZIP_SEEK_BUF_SIZE );
+			buf = (char *) alloca( ZIP_SEEK_BUF_SIZE );
 			for ( i = 0; i < ( offset - ZIP_SEEK_BUF_SIZE ); i += ZIP_SEEK_BUF_SIZE ) {
 				res = unzReadCurrentFile( z, buf, ZIP_SEEK_BUF_SIZE );
 				if ( res < ZIP_SEEK_BUF_SIZE ) {

@@ -2649,7 +2649,7 @@ void idCollisionModelManagerLocal::ConvertBrushSides( cm_model_t *model, const i
 	const idMaterial *material;
 
 	// fix degenerate planes
-	planes = (idPlane *) _alloca16( mapBrush->GetNumSides() * sizeof( planes[0] ) );
+	planes = (idPlane *) alloca( mapBrush->GetNumSides() * sizeof( planes[0] ) );
 	for ( i = 0; i < mapBrush->GetNumSides(); i++ ) {
 		planes[i] = mapBrush->GetSide(i)->GetPlane();
 		planes[i].FixDegeneracies( DEGENERATE_DIST_EPSILON );
@@ -2694,7 +2694,7 @@ void idCollisionModelManagerLocal::ConvertBrush( cm_model_t *model, const idMapB
 	bounds.Clear();
 
 	// fix degenerate planes
-	planes = (idPlane *) _alloca16( mapBrush->GetNumSides() * sizeof( planes[0] ) );
+	planes = (idPlane *) alloca( mapBrush->GetNumSides() * sizeof( planes[0] ) );
 	for ( i = 0; i < mapBrush->GetNumSides(); i++ ) {
 		planes[i] = mapBrush->GetSide(i)->GetPlane();
 		planes[i].FixDegeneracies( DEGENERATE_DIST_EPSILON );
