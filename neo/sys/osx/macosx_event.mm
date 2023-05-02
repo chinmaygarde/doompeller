@@ -139,6 +139,7 @@ void Sys_InitScanTable( void ) {
 		vkeyTable = vkeyToDoom3Key_German;
 	}
 
+#if 0
 	if ( KLGetCurrentKeyboardLayout( &kbLayout )  == 0 ) {
 		if ( KLGetKeyboardLayoutProperty( kbLayout, kKLuchrData, &sKLuchrData ) ) {
 			common->Warning("KLGetKeyboardLayoutProperty failed");
@@ -149,6 +150,7 @@ void Sys_InitScanTable( void ) {
 			}
 		}
 	}
+#endif
 	if ( !sKLuchrData && !sKLKCHRData ) {
 		common->Warning("Keyboard input initialziation failed");
 	}
@@ -262,6 +264,7 @@ inline bool OSX_LookupCharacter(unsigned short vkey, unsigned int modifiers, boo
 			return true;
 		}
 	}
+#if 0
 	else if ( sKLKCHRData ) {
 		translated = KeyTranslate( sKLKCHRData, vkey, &keyTranslateState );
 		if ( ( translated & 0x00ff0000 ) == 0 ) {
@@ -269,6 +272,7 @@ inline bool OSX_LookupCharacter(unsigned short vkey, unsigned int modifiers, boo
 			return true;
 		}
 	}
+#endif
 	return false;
 }
 
@@ -433,9 +437,8 @@ void processEvent( NSEvent *event ) {
 
 void Posix_PollInput( void ) {
     NSEvent *event;
-    unsigned int eventMask;
-    
-    eventMask = NSAnyEventMask;
+
+    auto eventMask = NSAnyEventMask;
      
     while ( ( event = [ NSApp nextEventMatchingMask: eventMask
 							  untilDate: distantPast

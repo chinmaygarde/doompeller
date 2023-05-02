@@ -664,12 +664,12 @@ double Sys_ClockTicksPerSecond(void) {
 	// exceeded the signed long that Gestalt returns.
 	long osVers;
 	OSErr err;
-	Gestalt(gestaltSystemVersion, &osVers);
+	Gestalt(gestaltSystemVersion, (SInt32*)&osVers);
 	if (osVers >= 0x1030)
-		err = Gestalt(gestaltProcClkSpeedMHz, &gestaltSpeed);
+		err = Gestalt(gestaltProcClkSpeedMHz, (SInt32*)&gestaltSpeed);
 	else
 	{
-		err = Gestalt(gestaltProcClkSpeed, &gestaltSpeed);
+		err = Gestalt(gestaltProcClkSpeed, (SInt32*)&gestaltSpeed);
 		if (err == noErr)
 			gestaltSpeed = gestaltSpeed / 1000000;				
 	}	
@@ -679,7 +679,7 @@ double Sys_ClockTicksPerSecond(void) {
     mach_port_t masterPort;
 	CFMutableDictionaryRef matchDict = nil;
 	io_iterator_t itThis;
-	io_service_t service = nil;
+	io_service_t service = {};
 	
     if (IOMasterPort(MACH_PORT_NULL, &masterPort))
 		goto bail;
@@ -943,6 +943,7 @@ static pascal OSStatus RegCodeHandler( EventHandlerCallRef inHandler, EventRef i
  */
 static OSErr DoRegCodeDialog( char* ioRegCode1 )
 {
+#if 0
 	OSErr err;
 	RegCodeInfo regCodeInfo;
 	memset(&regCodeInfo, 0, sizeof(regCodeInfo));
@@ -976,6 +977,8 @@ static OSErr DoRegCodeDialog( char* ioRegCode1 )
 	}
 	
 	return regCodeInfo.okPressed ? (OSErr)noErr : (OSErr)userCanceledErr;	
+#endif
+    return 0;
 }
 
 /*

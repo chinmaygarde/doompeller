@@ -70,7 +70,7 @@ void R_CalcInteractionFacing( const idRenderEntityLocal *ent, const srfTriangles
 	cullInfo.facing = (byte *) R_StaticAlloc( ( numFaces + 1 ) * sizeof( cullInfo.facing[0] ) );
 
 	// calculate back face culling
-	float *planeSide = (float *) _alloca16( numFaces * sizeof( float ) );
+	float *planeSide = (float *) alloca( numFaces * sizeof( float ) );
 
 	// exact geometric cull against face
 	SIMDProcessor->Dot( planeSide, localLightOrigin, tri->facePlanes, numFaces );

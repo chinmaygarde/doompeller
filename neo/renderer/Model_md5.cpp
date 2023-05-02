@@ -353,7 +353,7 @@ idMD5Mesh::CalcBounds
 */
 idBounds idMD5Mesh::CalcBounds( const idJointMat *entJoints ) {
 	idBounds	bounds;
-	idDrawVert *verts = (idDrawVert *) _alloca16( texCoords.Num() * sizeof( idDrawVert ) );
+	idDrawVert *verts = (idDrawVert *) alloca( texCoords.Num() * sizeof( idDrawVert ) );
 
 	TransformVerts( verts, entJoints );
 

@@ -8,11 +8,6 @@ executable("doom") {
   # target_type = "executable"
 
   cflags = [
-    # "-Wno-overloaded-virtual",
-
-    # "-Wno-ignored-qualifiers",
-
-    # "-Wno-unused-variable",
     "-Wno-macro-redefined",
     "-Wno-format-security",
     "-Wno-format",
@@ -23,6 +18,19 @@ executable("doom") {
     "-Wno-register",
     "-Wno-dangling-else",
     "-Wno-parentheses-equality",
+    "-Wno-sizeof-pointer-memaccess",
+    "-Wno-switch",
+    "-Wno-c++11-narrowing",
+    "-Wno-self-assign-field",
+    "-Wno-int-to-void-pointer-cast",
+    "-Wno-unused-value",
+    "-Wno-int-to-pointer-cast",
+    "-Wno-parentheses",
+    "-Wno-shift-negative-value",
+    "-Wno-implicit-int",
+    "-Wno-dynamic-class-memaccess",
+    "-Wno-null-conversion",
+    "-Wno-invalid-source-encoding",
   ]
 
   # cflags_cc = [ "-frtti" ]
