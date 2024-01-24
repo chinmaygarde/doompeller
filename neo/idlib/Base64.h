@@ -32,6 +32,8 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Str.h"
+
 #ifndef __BASE64_H__
 #define __BASE64_H__
 

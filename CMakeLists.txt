@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 set(CMAKE_C_STANDARD 17)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_program(CCACHE_PROGRAM NAMES ccache)
@@ -18,226 +18,233 @@ endif()
 project(doompeller)
 
 add_executable(doompeller
-  neo/cm/CollisionModel_contacts.cpp
-  neo/cm/CollisionModel_contents.cpp
-  neo/cm/CollisionModel_debug.cpp
-  neo/cm/CollisionModel_files.cpp
-  neo/cm/CollisionModel_load.cpp
-  neo/cm/CollisionModel_rotate.cpp
-  neo/cm/CollisionModel_trace.cpp
-  neo/cm/CollisionModel_translate.cpp
-  neo/framework/CVarSystem.cpp
-  neo/framework/CmdSystem.cpp
-  neo/framework/Common.cpp
-  neo/framework/Compressor.cpp
-  neo/framework/Console.cpp
-  neo/framework/DeclAF.cpp
-  neo/framework/DeclEntityDef.cpp
-  neo/framework/DeclFX.cpp
-  neo/framework/DeclManager.cpp
-  neo/framework/DeclPDA.cpp
-  neo/framework/DeclParticle.cpp
-  neo/framework/DeclSkin.cpp
-  neo/framework/DeclTable.cpp
-  neo/framework/DemoFile.cpp
-  neo/framework/EditField.cpp
-  neo/framework/EventLoop.cpp
-  neo/framework/File.cpp
-  neo/framework/FileSystem.cpp
-  neo/framework/KeyInput.cpp
-  neo/framework/Session.cpp
-  neo/framework/Session_menu.cpp
-  neo/framework/Unzip.cpp
-  neo/framework/UsercmdGen.cpp
-  neo/framework/async/AsyncClient.cpp
-  neo/framework/async/AsyncNetwork.cpp
-  neo/framework/async/AsyncServer.cpp
-  neo/framework/async/MsgChannel.cpp
-  neo/framework/async/NetworkSystem.cpp
-  neo/framework/async/ServerScan.cpp
-  neo/renderer/Cinematic.cpp
-  neo/renderer/GuiModel.cpp
-  neo/renderer/Image_files.cpp
-  neo/renderer/Image_init.cpp
-  neo/renderer/Image_load.cpp
-  neo/renderer/Image_process.cpp
-  neo/renderer/Image_program.cpp
-  neo/renderer/Interaction.cpp
-  neo/renderer/Material.cpp
-  neo/renderer/MegaTexture.cpp
-  neo/renderer/Model.cpp
-  neo/renderer/ModelDecal.cpp
-  neo/renderer/ModelManager.cpp
-  neo/renderer/ModelOverlay.cpp
-  neo/renderer/Model_ase.cpp
-  neo/renderer/Model_beam.cpp
-  neo/renderer/Model_liquid.cpp
-  neo/renderer/Model_lwo.cpp
-  neo/renderer/Model_ma.cpp
-  neo/renderer/Model_md3.cpp
-  neo/renderer/Model_md5.cpp
-  neo/renderer/Model_prt.cpp
-  neo/renderer/Model_sprite.cpp
-  neo/renderer/RenderEntity.cpp
-  neo/renderer/RenderSystem.cpp
-  neo/renderer/RenderSystem_init.cpp
-  neo/renderer/RenderWorld.cpp
-  neo/renderer/RenderWorld_demo.cpp
-  neo/renderer/RenderWorld_load.cpp
-  neo/renderer/RenderWorld_portals.cpp
-  neo/renderer/VertexCache.cpp
-  neo/renderer/cg_explicit.cpp
-  neo/renderer/draw_arb.cpp
-  neo/renderer/draw_arb2.cpp
-  neo/renderer/draw_common.cpp
-  neo/renderer/draw_exp_stub.cpp
-  neo/renderer/draw_nv10.cpp
-  neo/renderer/draw_nv20.cpp
-  neo/renderer/draw_r200.cpp
-  neo/renderer/jpeg-6/jcapimin.c
-  neo/renderer/jpeg-6/jcapistd.c
-  neo/renderer/jpeg-6/jccoefct.c
-  neo/renderer/jpeg-6/jccolor.c
-  neo/renderer/jpeg-6/jcdctmgr.c
-  neo/renderer/jpeg-6/jchuff.c
-  neo/renderer/jpeg-6/jcinit.c
-  neo/renderer/jpeg-6/jcmainct.c
-  neo/renderer/jpeg-6/jcmarker.c
-  neo/renderer/jpeg-6/jcmaster.c
-  neo/renderer/jpeg-6/jcomapi.c
-  neo/renderer/jpeg-6/jcparam.c
-  neo/renderer/jpeg-6/jcphuff.c
-  neo/renderer/jpeg-6/jcprepct.c
-  neo/renderer/jpeg-6/jcsample.c
-  neo/renderer/jpeg-6/jctrans.c
-  neo/renderer/jpeg-6/jdapimin.c
-  neo/renderer/jpeg-6/jdapistd.c
-  neo/renderer/jpeg-6/jdatadst.c
-  neo/renderer/jpeg-6/jdatasrc.c
-  neo/renderer/jpeg-6/jdcoefct.c
-  neo/renderer/jpeg-6/jdcolor.c
-  neo/renderer/jpeg-6/jddctmgr.c
-  neo/renderer/jpeg-6/jdhuff.c
-  neo/renderer/jpeg-6/jdinput.c
-  neo/renderer/jpeg-6/jdmainct.c
-  neo/renderer/jpeg-6/jdmarker.c
-  neo/renderer/jpeg-6/jdmaster.c
-  neo/renderer/jpeg-6/jdmerge.c
-  neo/renderer/jpeg-6/jdphuff.c
-  neo/renderer/jpeg-6/jdpostct.c
-  neo/renderer/jpeg-6/jdsample.c
-  neo/renderer/jpeg-6/jdtrans.c
-  neo/renderer/jpeg-6/jerror.c
-  neo/renderer/jpeg-6/jfdctflt.c
-  neo/renderer/jpeg-6/jfdctfst.c
-  neo/renderer/jpeg-6/jfdctint.c
-  neo/renderer/jpeg-6/jidctflt.c
-  neo/renderer/jpeg-6/jidctfst.c
-  neo/renderer/jpeg-6/jidctint.c
-  neo/renderer/jpeg-6/jidctred.c
-  neo/renderer/jpeg-6/jmemmgr.c
-  neo/renderer/jpeg-6/jmemnobs.c
-  neo/renderer/jpeg-6/jquant1.c
-  neo/renderer/jpeg-6/jquant2.c
-  neo/renderer/jpeg-6/jutils.c
-  neo/renderer/tr_backend.cpp
-  neo/renderer/tr_deform.cpp
-  neo/renderer/tr_font.cpp
-  neo/renderer/tr_guisurf.cpp
-  neo/renderer/tr_light.cpp
-  neo/renderer/tr_lightrun.cpp
-  neo/renderer/tr_main.cpp
-  neo/renderer/tr_orderIndexes.cpp
-  neo/renderer/tr_polytope.cpp
-  neo/renderer/tr_render.cpp
-  neo/renderer/tr_rendertools.cpp
-  neo/renderer/tr_shadowbounds.cpp
-  neo/renderer/tr_stencilshadow.cpp
-  neo/renderer/tr_subview.cpp
-  neo/renderer/tr_trace.cpp
-  neo/renderer/tr_trisurf.cpp
-  neo/renderer/tr_turboshadow.cpp
-  neo/sound/snd_cache.cpp
-  neo/sound/snd_decoder.cpp
-  neo/sound/snd_efxfile.cpp
-  neo/sound/snd_emitter.cpp
-  neo/sound/snd_shader.cpp
-  neo/sound/snd_system.cpp
-  neo/sound/snd_wavefile.cpp
-  neo/sound/snd_world.cpp
-  neo/sys/linux/stack.cpp
-  neo/sys/osx/DOOMController.mm
-  neo/sys/osx/PickMonitor.cpp
-  neo/sys/osx/PreferencesDialog.cpp
-  neo/sys/osx/macosx_event.mm
-  neo/sys/osx/macosx_glimp.mm
-  neo/sys/osx/macosx_guids.cpp
-  neo/sys/osx/macosx_misc.mm
-  neo/sys/osx/macosx_sound.cpp
-  neo/sys/posix/posix_input.cpp
-  neo/sys/posix/posix_main.cpp
-  neo/sys/posix/posix_net.cpp
-  neo/sys/posix/posix_signal.cpp
-  neo/sys/posix/posix_threads.cpp
-  neo/sys/stub/util_stub.cpp
-  neo/sys/sys_local.cpp
-  neo/tools/compilers/aas/AASBuild.cpp
-  neo/tools/compilers/aas/AASBuild_file.cpp
-  neo/tools/compilers/aas/AASBuild_gravity.cpp
-  neo/tools/compilers/aas/AASBuild_ledge.cpp
-  neo/tools/compilers/aas/AASBuild_merge.cpp
-  neo/tools/compilers/aas/AASCluster.cpp
-  neo/tools/compilers/aas/AASFile.cpp
-  neo/tools/compilers/aas/AASFileManager.cpp
-  neo/tools/compilers/aas/AASFile_optimize.cpp
-  neo/tools/compilers/aas/AASFile_sample.cpp
-  neo/tools/compilers/aas/AASReach.cpp
-  neo/tools/compilers/aas/Brush.cpp
-  neo/tools/compilers/aas/BrushBSP.cpp
-  neo/tools/compilers/dmap/dmap.cpp
-  neo/tools/compilers/dmap/facebsp.cpp
-  neo/tools/compilers/dmap/gldraw.cpp
-  neo/tools/compilers/dmap/glfile.cpp
-  neo/tools/compilers/dmap/leakfile.cpp
-  neo/tools/compilers/dmap/map.cpp
-  neo/tools/compilers/dmap/optimize.cpp
-  neo/tools/compilers/dmap/output.cpp
-  neo/tools/compilers/dmap/portals.cpp
-  neo/tools/compilers/dmap/shadowopt3.cpp
-  neo/tools/compilers/dmap/tritjunction.cpp
-  neo/tools/compilers/dmap/tritools.cpp
-  neo/tools/compilers/dmap/ubrush.cpp
-  neo/tools/compilers/dmap/usurface.cpp
-  neo/tools/compilers/renderbump/renderbump.cpp
-  neo/tools/compilers/roqvq/NSBitmapImageRep.cpp
-  neo/tools/compilers/roqvq/codec.cpp
-  neo/tools/compilers/roqvq/roq.cpp
-  neo/tools/compilers/roqvq/roqParam.cpp
-  neo/tools/edit_stub.cpp
-  neo/tools/guied/GEWindowWrapper_stub.cpp
-  neo/ui/BindWindow.cpp
-  neo/ui/ChoiceWindow.cpp
-  neo/ui/DeviceContext.cpp
-  neo/ui/EditWindow.cpp
-  neo/ui/FieldWindow.cpp
-  neo/ui/GameBearShootWindow.cpp
-  neo/ui/GameBustOutWindow.cpp
-  neo/ui/GameSSDWindow.cpp
-  neo/ui/GuiScript.cpp
-  neo/ui/ListGUI.cpp
-  neo/ui/ListWindow.cpp
-  neo/ui/MarkerWindow.cpp
-  neo/ui/RegExp.cpp
-  neo/ui/RenderWindow.cpp
-  neo/ui/SimpleWindow.cpp
-  neo/ui/SliderWindow.cpp
-  neo/ui/UserInterface.cpp
-  neo/ui/Window.cpp
-  neo/ui/Winvar.cpp
+  neo/idlib/precompiled.cpp
+  # neo/cm/CollisionModel_contacts.cpp
+  # neo/cm/CollisionModel_contents.cpp
+  # neo/cm/CollisionModel_debug.cpp
+  # neo/cm/CollisionModel_files.cpp
+  # neo/cm/CollisionModel_load.cpp
+  # neo/cm/CollisionModel_rotate.cpp
+  # neo/cm/CollisionModel_trace.cpp
+  # neo/cm/CollisionModel_translate.cpp
+  # neo/framework/CVarSystem.cpp
+  # neo/framework/CmdSystem.cpp
+  # neo/framework/Common.cpp
+  # neo/framework/Compressor.cpp
+  # neo/framework/Console.cpp
+  # neo/framework/DeclAF.cpp
+  # neo/framework/DeclEntityDef.cpp
+  # neo/framework/DeclFX.cpp
+  # neo/framework/DeclManager.cpp
+  # neo/framework/DeclPDA.cpp
+  # neo/framework/DeclParticle.cpp
+  # neo/framework/DeclSkin.cpp
+  # neo/framework/DeclTable.cpp
+  # neo/framework/DemoFile.cpp
+  # neo/framework/EditField.cpp
+  # neo/framework/EventLoop.cpp
+  # neo/framework/File.cpp
+  # neo/framework/FileSystem.cpp
+  # neo/framework/KeyInput.cpp
+  # neo/framework/Session.cpp
+  # neo/framework/Session_menu.cpp
+  # neo/framework/Unzip.cpp
+  # neo/framework/UsercmdGen.cpp
+  # neo/framework/async/AsyncClient.cpp
+  # neo/framework/async/AsyncNetwork.cpp
+  # neo/framework/async/AsyncServer.cpp
+  # neo/framework/async/MsgChannel.cpp
+  # neo/framework/async/NetworkSystem.cpp
+  # neo/framework/async/ServerScan.cpp
+  # neo/renderer/Cinematic.cpp
+  # neo/renderer/GuiModel.cpp
+  # neo/renderer/Image_files.cpp
+  # neo/renderer/Image_init.cpp
+  # neo/renderer/Image_load.cpp
+  # neo/renderer/Image_process.cpp
+  # neo/renderer/Image_program.cpp
+  # neo/renderer/Interaction.cpp
+  # neo/renderer/Material.cpp
+  # neo/renderer/MegaTexture.cpp
+  # neo/renderer/Model.cpp
+  # neo/renderer/ModelDecal.cpp
+  # neo/renderer/ModelManager.cpp
+  # neo/renderer/ModelOverlay.cpp
+  # neo/renderer/Model_ase.cpp
+  # neo/renderer/Model_beam.cpp
+  # neo/renderer/Model_liquid.cpp
+  # neo/renderer/Model_lwo.cpp
+  # neo/renderer/Model_ma.cpp
+  # neo/renderer/Model_md3.cpp
+  # neo/renderer/Model_md5.cpp
+  # neo/renderer/Model_prt.cpp
+  # neo/renderer/Model_sprite.cpp
+  # neo/renderer/RenderEntity.cpp
+  # neo/renderer/RenderSystem.cpp
+  # neo/renderer/RenderSystem_init.cpp
+  # neo/renderer/RenderWorld.cpp
+  # neo/renderer/RenderWorld_demo.cpp
+  # neo/renderer/RenderWorld_load.cpp
+  # neo/renderer/RenderWorld_portals.cpp
+  # neo/renderer/VertexCache.cpp
+  # neo/renderer/cg_explicit.cpp
+  # neo/renderer/draw_arb.cpp
+  # neo/renderer/draw_arb2.cpp
+  # neo/renderer/draw_common.cpp
+  # neo/renderer/draw_exp_stub.cpp
+  # neo/renderer/draw_nv10.cpp
+  # neo/renderer/draw_nv20.cpp
+  # neo/renderer/draw_r200.cpp
+  # neo/renderer/jpeg-6/jcapimin.c
+  # neo/renderer/jpeg-6/jcapistd.c
+  # neo/renderer/jpeg-6/jccoefct.c
+  # neo/renderer/jpeg-6/jccolor.c
+  # neo/renderer/jpeg-6/jcdctmgr.c
+  # neo/renderer/jpeg-6/jchuff.c
+  # neo/renderer/jpeg-6/jcinit.c
+  # neo/renderer/jpeg-6/jcmainct.c
+  # neo/renderer/jpeg-6/jcmarker.c
+  # neo/renderer/jpeg-6/jcmaster.c
+  # neo/renderer/jpeg-6/jcomapi.c
+  # neo/renderer/jpeg-6/jcparam.c
+  # neo/renderer/jpeg-6/jcphuff.c
+  # neo/renderer/jpeg-6/jcprepct.c
+  # neo/renderer/jpeg-6/jcsample.c
+  # neo/renderer/jpeg-6/jctrans.c
+  # neo/renderer/jpeg-6/jdapimin.c
+  # neo/renderer/jpeg-6/jdapistd.c
+  # neo/renderer/jpeg-6/jdatadst.c
+  # neo/renderer/jpeg-6/jdatasrc.c
+  # neo/renderer/jpeg-6/jdcoefct.c
+  # neo/renderer/jpeg-6/jdcolor.c
+  # neo/renderer/jpeg-6/jddctmgr.c
+  # neo/renderer/jpeg-6/jdhuff.c
+  # neo/renderer/jpeg-6/jdinput.c
+  # neo/renderer/jpeg-6/jdmainct.c
+  # neo/renderer/jpeg-6/jdmarker.c
+  # neo/renderer/jpeg-6/jdmaster.c
+  # neo/renderer/jpeg-6/jdmerge.c
+  # neo/renderer/jpeg-6/jdphuff.c
+  # neo/renderer/jpeg-6/jdpostct.c
+  # neo/renderer/jpeg-6/jdsample.c
+  # neo/renderer/jpeg-6/jdtrans.c
+  # neo/renderer/jpeg-6/jerror.c
+  # neo/renderer/jpeg-6/jfdctflt.c
+  # neo/renderer/jpeg-6/jfdctfst.c
+  # neo/renderer/jpeg-6/jfdctint.c
+  # neo/renderer/jpeg-6/jidctflt.c
+  # neo/renderer/jpeg-6/jidctfst.c
+  # neo/renderer/jpeg-6/jidctint.c
+  # neo/renderer/jpeg-6/jidctred.c
+  # neo/renderer/jpeg-6/jmemmgr.c
+  # neo/renderer/jpeg-6/jmemnobs.c
+  # neo/renderer/jpeg-6/jquant1.c
+  # neo/renderer/jpeg-6/jquant2.c
+  # neo/renderer/jpeg-6/jutils.c
+  # neo/renderer/tr_backend.cpp
+  # neo/renderer/tr_deform.cpp
+  # neo/renderer/tr_font.cpp
+  # neo/renderer/tr_guisurf.cpp
+  # neo/renderer/tr_light.cpp
+  # neo/renderer/tr_lightrun.cpp
+  # neo/renderer/tr_main.cpp
+  # neo/renderer/tr_orderIndexes.cpp
+  # neo/renderer/tr_polytope.cpp
+  # neo/renderer/tr_render.cpp
+  # neo/renderer/tr_rendertools.cpp
+  # neo/renderer/tr_shadowbounds.cpp
+  # neo/renderer/tr_stencilshadow.cpp
+  # neo/renderer/tr_subview.cpp
+  # neo/renderer/tr_trace.cpp
+  # neo/renderer/tr_trisurf.cpp
+  # neo/renderer/tr_turboshadow.cpp
+  # neo/sound/snd_cache.cpp
+  # neo/sound/snd_decoder.cpp
+  # neo/sound/snd_efxfile.cpp
+  # neo/sound/snd_emitter.cpp
+  # neo/sound/snd_shader.cpp
+  # neo/sound/snd_system.cpp
+  # neo/sound/snd_wavefile.cpp
+  # neo/sound/snd_world.cpp
+  # neo/sys/linux/stack.cpp
+  # neo/sys/osx/DOOMController.mm
+  # neo/sys/osx/PickMonitor.cpp
+  # neo/sys/osx/PreferencesDialog.cpp
+  # neo/sys/osx/macosx_event.mm
+  # neo/sys/osx/macosx_glimp.mm
+  # neo/sys/osx/macosx_guids.cpp
+  # neo/sys/osx/macosx_misc.mm
+  # neo/sys/osx/macosx_sound.cpp
+  # neo/sys/posix/posix_input.cpp
+  # neo/sys/posix/posix_main.cpp
+  # neo/sys/posix/posix_net.cpp
+  # neo/sys/posix/posix_signal.cpp
+  # neo/sys/posix/posix_threads.cpp
+  # neo/sys/stub/util_stub.cpp
+  # neo/sys/sys_local.cpp
+  # neo/tools/compilers/aas/AASBuild.cpp
+  # neo/tools/compilers/aas/AASBuild_file.cpp
+  # neo/tools/compilers/aas/AASBuild_gravity.cpp
+  # neo/tools/compilers/aas/AASBuild_ledge.cpp
+  # neo/tools/compilers/aas/AASBuild_merge.cpp
+  # neo/tools/compilers/aas/AASCluster.cpp
+  # neo/tools/compilers/aas/AASFile.cpp
+  # neo/tools/compilers/aas/AASFileManager.cpp
+  # neo/tools/compilers/aas/AASFile_optimize.cpp
+  # neo/tools/compilers/aas/AASFile_sample.cpp
+  # neo/tools/compilers/aas/AASReach.cpp
+  # neo/tools/compilers/aas/Brush.cpp
+  # neo/tools/compilers/aas/BrushBSP.cpp
+  # neo/tools/compilers/dmap/dmap.cpp
+  # neo/tools/compilers/dmap/facebsp.cpp
+  # neo/tools/compilers/dmap/gldraw.cpp
+  # neo/tools/compilers/dmap/glfile.cpp
+  # neo/tools/compilers/dmap/leakfile.cpp
+  # neo/tools/compilers/dmap/map.cpp
+  # neo/tools/compilers/dmap/optimize.cpp
+  # neo/tools/compilers/dmap/output.cpp
+  # neo/tools/compilers/dmap/portals.cpp
+  # neo/tools/compilers/dmap/shadowopt3.cpp
+  # neo/tools/compilers/dmap/tritjunction.cpp
+  # neo/tools/compilers/dmap/tritools.cpp
+  # neo/tools/compilers/dmap/ubrush.cpp
+  # neo/tools/compilers/dmap/usurface.cpp
+  # neo/tools/compilers/renderbump/renderbump.cpp
+  # neo/tools/compilers/roqvq/NSBitmapImageRep.cpp
+  # neo/tools/compilers/roqvq/codec.cpp
+  # neo/tools/compilers/roqvq/roq.cpp
+  # neo/tools/compilers/roqvq/roqParam.cpp
+  # neo/tools/edit_stub.cpp
+  # neo/tools/guied/GEWindowWrapper_stub.cpp
+  # neo/ui/BindWindow.cpp
+  # neo/ui/ChoiceWindow.cpp
+  # neo/ui/DeviceContext.cpp
+  # neo/ui/EditWindow.cpp
+  # neo/ui/FieldWindow.cpp
+  # neo/ui/GameBearShootWindow.cpp
+  # neo/ui/GameBustOutWindow.cpp
+  # neo/ui/GameSSDWindow.cpp
+  # neo/ui/GuiScript.cpp
+  # neo/ui/ListGUI.cpp
+  # neo/ui/ListWindow.cpp
+  # neo/ui/MarkerWindow.cpp
+  # neo/ui/RegExp.cpp
+  # neo/ui/RenderWindow.cpp
+  # neo/ui/SimpleWindow.cpp
+  # neo/ui/SliderWindow.cpp
+  # neo/ui/UserInterface.cpp
+  # neo/ui/Window.cpp
+  # neo/ui/Winvar.cpp
 )
 
 target_compile_options(doompeller
   PRIVATE
     -Wno-deprecated-declarations
+    -Wno-null-conversion
 )
 
+
+target_include_directories(doompeller
+  PRIVATE
+    neo
+)

@@ -32,6 +32,8 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Matrix.h"
+
 #ifndef __MATH_CURVE_H__
 #define __MATH_CURVE_H__
 

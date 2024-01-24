@@ -32,6 +32,8 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Dict.h"
+
 #ifndef __BITMSG_H__
 #define __BITMSG_H__
 

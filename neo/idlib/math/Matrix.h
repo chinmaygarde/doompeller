@@ -2131,7 +2131,7 @@ ID_INLINE float* idMat6::ToFloatPtr(void) {
 //  The matrix lives on 16 byte aligned and 16 byte padded memory.
 //
 //	NOTE: due to the temporary memory pool idMatX cannot be used by multiple
-//threads.
+// threads.
 //
 //===============================================================
 
@@ -2143,7 +2143,7 @@ ID_INLINE float* idMat6::ToFloatPtr(void) {
     mat[s++] = 0.0f;            \
   }
 #define MATX_ALLOCA(n) ((float*)__builtin_alloca_with_align(MATX_QUAD(n), 16))
-#define MATX_SIMD
+// #define MATX_SIMD
 
 class idMatX {
  public:

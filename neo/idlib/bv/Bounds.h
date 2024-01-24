@@ -32,6 +32,8 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Sphere.h"
+
 #ifndef __BV_BOUNDS_H__
 #define __BV_BOUNDS_H__
 

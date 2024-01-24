@@ -32,6 +32,9 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Math.h"
+#include "Random.h"
+
 #ifndef __MATH_VECTOR_H__
 #define __MATH_VECTOR_H__
 
@@ -1468,7 +1471,7 @@ ID_INLINE float* idVec6::ToFloatPtr(void) {
 //  The vector lives on 16 byte aligned and 16 byte padded memory.
 //
 //	NOTE: due to the temporary memory pool idVecX cannot be used by multiple
-//threads
+// threads
 //
 //===============================================================
 
@@ -1480,7 +1483,7 @@ ID_INLINE float* idVec6::ToFloatPtr(void) {
     p[s++] = 0.0f;             \
   }
 #define VECX_ALLOCA(n) ((float*)__builtin_alloca_with_align(VECX_QUAD(n), 16))
-#define VECX_SIMD
+// #define VECX_SIMD
 
 class idVecX {
   friend class idMatX;

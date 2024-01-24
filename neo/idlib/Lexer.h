@@ -32,6 +32,9 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 ===========================================================================
 */
 
+#include "Str.h"
+#include "Token.h"
+
 #ifndef __LEXER_H__
 #define __LEXER_H__
 

@@ -64,7 +64,7 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 
 #define assertmem(x, y) assert(_CrtIsValidPointer(x, y, true))
 
-#endif
+#endif  // defined(WIN32) || defined(_WIN32)
 
 // Mac OSX
 #if defined(MACOS_X) || defined(__APPLE__)
@@ -102,7 +102,7 @@ terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
 
 #define assertmem(x, y)
 
-#endif
+#endif  // defined(MACOS_X) || defined(__APPLE__)
 
 // Linux
 #ifdef __linux__
