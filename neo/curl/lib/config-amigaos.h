@@ -67,8 +67,8 @@
 
 #define RETSIGTYPE void
 #define SELECT_TYPE_ARG1 int
-#define SELECT_TYPE_ARG234 (fd_set *)
-#define SELECT_TYPE_ARG5 (struct timeval *)
+#define SELECT_TYPE_ARG234 (fd_set*)
+#define SELECT_TYPE_ARG5 (struct timeval*)
 #define SIZEOF_CURL_OFF_T 4
 
 #define STDC_HEADERS 1
@@ -78,7 +78,7 @@
 #define socklen_t int
 
 #ifndef O_RDONLY
-# define O_RDONLY 0x0000
+#define O_RDONLY 0x0000
 #endif
 
 #endif /* LIBCURL_CONFIG_AMIGAOS_H */

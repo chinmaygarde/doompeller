@@ -25,21 +25,21 @@
 #define VORBIS_IEEE_FLOAT32 1
 #ifdef VORBIS_IEEE_FLOAT32
 
-static float unitnorm(float x){
-  ogg_uint32_t *ix=(ogg_uint32_t *)&x;
-  *ix=(*ix&0x80000000UL)|(0x3f800000UL);
-  return(x);
+static float unitnorm(float x) {
+  ogg_uint32_t* ix = (ogg_uint32_t*)&x;
+  *ix = (*ix & 0x80000000UL) | (0x3f800000UL);
+  return (x);
 }
 
-static float FABS(float *x){
-  ogg_uint32_t *ix=(ogg_uint32_t *)x;
-  *ix&=0x7fffffffUL;
-  return(*x);
+static float FABS(float* x) {
+  ogg_uint32_t* ix = (ogg_uint32_t*)x;
+  *ix &= 0x7fffffffUL;
+  return (*x);
 }
 
-static float todB(const float *x){
+static float todB(const float* x) {
   float calc;
-  ogg_int32_t *i=(ogg_int32_t *)x;
+  ogg_int32_t* i = (ogg_int32_t*)x;
   calc = ((*i) & 0x7fffffff);
   calc *= 7.1771144e-7f;
   calc += -764.27118f;
@@ -50,19 +50,20 @@ static float todB(const float *x){
 
 #else
 
-static float unitnorm(float x){
-  if(x<0)return(-1.f);
-  return(1.f);
+static float unitnorm(float x) {
+  if (x < 0)
+    return (-1.f);
+  return (1.f);
 }
 
 #define FABS(x) fabs(*(x))
 
-#define todB(x)   (*(x)==0?-400.f:log(*(x)**(x))*4.34294480f)
-#define todB_nn(x)   (*(x)==0.f?-400.f:log(*(x))*8.6858896f)
+#define todB(x) (*(x) == 0 ? -400.f : log(*(x) * *(x)) * 4.34294480f)
+#define todB_nn(x) (*(x) == 0.f ? -400.f : log(*(x)) * 8.6858896f)
 
-#endif 
+#endif
 
-#define fromdB(x) (exp((x)*.11512925f))  
+#define fromdB(x) (exp((x) * .11512925f))
 
 /* The bark scale equations are approximations, since the original
    table was somewhat hand rolled.  The below are chosen to have the
@@ -73,16 +74,18 @@ static float unitnorm(float x){
 
    all f in Hz, z in Bark */
 
-#define toBARK(n)   (13.1f*atan(.00074f*(n))+2.24f*atan((n)*(n)*1.85e-8f)+1e-4f*(n))
-#define fromBARK(z) (102.f*(z)-2.f*pow(z,2.f)+.4f*pow(z,3.f)+pow(1.46f,z)-1.f)
-#define toMEL(n)    (log(1.f+(n)*.001f)*1442.695f)
-#define fromMEL(m)  (1000.f*exp((m)/1442.695f)-1000.f)
+#define toBARK(n)                                                     \
+  (13.1f * atan(.00074f * (n)) + 2.24f * atan((n) * (n) * 1.85e-8f) + \
+   1e-4f * (n))
+#define fromBARK(z) \
+  (102.f * (z)-2.f * pow(z, 2.f) + .4f * pow(z, 3.f) + pow(1.46f, z) - 1.f)
+#define toMEL(n) (log(1.f + (n) * .001f) * 1442.695f)
+#define fromMEL(m) (1000.f * exp((m) / 1442.695f) - 1000.f)
 
 /* Frequency to octave.  We arbitrarily declare 63.5 Hz to be octave
    0.0 */
 
-#define toOC(n)     (log(n)*1.442695f-5.965784f)
-#define fromOC(o)   (exp(((o)+5.965784f)*.693147f))
+#define toOC(n) (log(n) * 1.442695f - 5.965784f)
+#define fromOC(o) (exp(((o) + 5.965784f) * .693147f))
 
 #endif
-

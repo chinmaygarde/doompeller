@@ -1,10 +1,10 @@
 #ifndef _CURL_STRTOOFFT_H
 #define _CURL_STRTOOFFT_H
 /***************************************************************************
- *                                  _   _ ____  _     
- *  Project                     ___| | | |  _ \| |    
- *                             / __| | | | |_) | |    
- *                            | (__| |_| |  _ <| |___ 
+ *                                  _   _ ____  _
+ *  Project                     ___| | | |  _ \| |
+ *                             / __| | | | |_) | |
+ *                            | (__| |_| |  _ <| |___
  *                             \___|\___/|_| \_\_____|
  *
  * Copyright (C) 1998 - 2004, Daniel Stenberg, <daniel@haxx.se>, et al.
@@ -12,7 +12,7 @@
  * This software is licensed as described in the file COPYING, which
  * you should have received as part of this distribution. The terms
  * are also available at http://curl.haxx.se/docs/copyright.html.
- * 
+ *
  * You may opt to use, copy, modify, merge, publish, distribute and/or sell
  * copies of the Software, and permit persons to whom the Software is
  * furnished to do so, under the terms of the COPYING file.
@@ -28,9 +28,9 @@
  * as well as the library. Do not mix with library internals!
  */
 
-#include "setup.h"
-#include <stddef.h>
 #include <curl/curl.h> /* for the curl_off_t type */
+#include <stddef.h>
+#include "setup.h"
 
 /* Determine what type of file offset conversion handling we wish to use.  For
  * systems with a 32-bit curl_off_t type, we should use strtol.  For systems
@@ -47,16 +47,15 @@
 #if defined(_MSC_VER) && (_MSC_VER >= 1300)
 #define strtoofft _strtoi64
 #else /* MSVC7 or later */
-curl_off_t curlx_strtoll(const char *nptr, char **endptr, int base);
+curl_off_t curlx_strtoll(const char* nptr, char** endptr, int base);
 #define strtoofft curlx_strtoll
 #define NEED_CURL_STRTOLL
 #endif /* MSVC7 or later */
 
 #endif /* HAVE_STRTOLL */
-#else /* SIZEOF_CURL_OFF_T > 4 */
+#else  /* SIZEOF_CURL_OFF_T > 4 */
 /* simply use strtol() to get 32bit numbers */
 #define strtoofft strtol
 #endif
 
 #endif
-

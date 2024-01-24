@@ -2,9 +2,9 @@
 ===========================================================================
 
 Doom 3 GPL Source Code
-Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).  
+This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
 Doom 3 Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,9 +19,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, the Doom 3 Source Code is also subject to certain additional terms.
+You should have received a copy of these additional terms immediately following
+the terms and conditions of the GNU General Public License which accompanied the
+Doom 3 Source Code.  If not, please request a copy in writing from id Software
+at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
+120, Rockville, Maryland 20850 USA.
 
 ===========================================================================
 */
@@ -31,48 +37,42 @@ If you have questions concerning this license or the applicable additional terms
 class idProgram;
 class idUserInterfaceLocal;
 
-class rvDebuggerScript 
-{
-public:
+class rvDebuggerScript {
+ public:
+  rvDebuggerScript(void);
+  ~rvDebuggerScript(void);
 
-	rvDebuggerScript ( void );
-	~rvDebuggerScript ( void );
+  bool Load(const char* filename);
+  bool Reload(void);
 
-	bool	Load		( const char* filename );	
-	bool	Reload		( void );
+  const char* GetFilename(void);
+  const char* GetContents(void);
 
-	const char*		GetFilename		( void );
-	const char*		GetContents		( void );
+  idProgram& GetProgram(void);
 
-	idProgram&		GetProgram		( void );
+  bool IsLineCode(int linenumber);
+  bool IsFileModified(bool updateTime = false);
 
-	bool			IsLineCode		( int linenumber );
-	bool			IsFileModified	( bool updateTime = false );	
+ protected:
+  void Unload(void);
 
-protected:
-
-	void			Unload			( void );
-
-	idProgram*				mProgram;
-	idUserInterfaceLocal*	mInterface;
-	char*					mContents;
-	idStr					mFilename;
-	ID_TIME_T					mModifiedTime;
+  idProgram* mProgram;
+  idUserInterfaceLocal* mInterface;
+  char* mContents;
+  idStr mFilename;
+  ID_TIME_T mModifiedTime;
 };
 
-ID_INLINE const char* rvDebuggerScript::GetFilename	( void )
-{
-	return mFilename;
+ID_INLINE const char* rvDebuggerScript::GetFilename(void) {
+  return mFilename;
 }
 
-ID_INLINE const char* rvDebuggerScript::GetContents	( void )
-{
-	return mContents?mContents:"";
+ID_INLINE const char* rvDebuggerScript::GetContents(void) {
+  return mContents ? mContents : "";
 }
 
-ID_INLINE idProgram& rvDebuggerScript::GetProgram ( void )
-{
-	return *mProgram;
+ID_INLINE idProgram& rvDebuggerScript::GetProgram(void) {
+  return *mProgram;
 }
 
-#endif // DEBUGGERSCRIPT_H_
+#endif  // DEBUGGERSCRIPT_H_

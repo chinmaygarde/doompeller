@@ -6,198 +6,196 @@
 //
 //  This material is provided "as is", with absolutely no warranty expressed
 //  or implied. Any use is at your own risk.
-// 
-//  Permission to use or copy this software for any purpose is hereby granted 
+//
+//  Permission to use or copy this software for any purpose is hereby granted
 //  without fee, provided the above notices are retained on all copies.
 //  Permission to modify the code and to distribute modified code is granted,
 //  provided the above notices are retained, and a notice that the code was
 //  modified is included with the above copyright notice.
-// 
-//	If you use this code, drop me an email.  I'd like to know if you find the code
-//	useful.
+//
+//	If you use this code, drop me an email.  I'd like to know if you find
+//the code 	useful.
 
 #ifndef _PROPTREEITEM_H
 #define _PROPTREEITEM_H
 
 class CPropTree;
 
-class PROPTREE_API CPropTreeItem
-{
-// Construction
-public:
-	CPropTreeItem();
-	virtual ~CPropTreeItem();
+class PROPTREE_API CPropTreeItem {
+  // Construction
 
-// Attributes/Operations
-public:
-	// TreeItem states
-	BOOL IsExpanded();
-	BOOL IsSelected();
-	BOOL IsChecked();
-	BOOL IsReadOnly();
-	BOOL IsActivated();
+ public:
+  CPropTreeItem();
+  virtual ~CPropTreeItem();
 
-	void Select(BOOL bSelect = TRUE);
-	void Expand(BOOL bExpand = TRUE);
-	void Check(BOOL bCheck = TRUE);
-	void ReadOnly(BOOL bReadOnly = TRUE);
+  // Attributes/Operations
 
-	// Returns true if the item has a checkbox
-	BOOL IsCheckBox();
+ public:
+  // TreeItem states
+  BOOL IsExpanded();
+  BOOL IsSelected();
+  BOOL IsChecked();
+  BOOL IsReadOnly();
+  BOOL IsActivated();
 
-	// Pass in true, for the item to have a checkbox
-	void HasCheckBox(BOOL bCheckbox = TRUE);
+  void Select(BOOL bSelect = TRUE);
+  void Expand(BOOL bExpand = TRUE);
+  void Check(BOOL bCheck = TRUE);
+  void ReadOnly(BOOL bReadOnly = TRUE);
 
-	// Returns TRUE if the point is on the expand button
-	BOOL HitExpand(const POINT& pt);
+  // Returns true if the item has a checkbox
+  BOOL IsCheckBox();
 
-	// Returns TRUE if the point is on the check box
-	BOOL HitCheckBox(const POINT& pt);
+  // Pass in true, for the item to have a checkbox
+  void HasCheckBox(BOOL bCheckbox = TRUE);
 
-	// Overrideable - Returns TRUE if the point is on the button
-	virtual BOOL HitButton(const POINT& pt) { return false;}
+  // Returns TRUE if the point is on the expand button
+  BOOL HitExpand(const POINT& pt);
 
-	// Returns TRUE if the item is on the root level. Root level items don't have attribute areas
-	BOOL IsRootLevel();
+  // Returns TRUE if the point is on the check box
+  BOOL HitCheckBox(const POINT& pt);
 
-	// Returns the total height of the item and all its children
-	LONG GetTotalHeight();
+  // Overrideable - Returns TRUE if the point is on the button
+  virtual BOOL HitButton(const POINT& pt) { return false; }
 
-	// Set the items label text
-	void SetLabelText(LPCTSTR sLabel);
+  // Returns TRUE if the item is on the root level. Root level items don't have
+  // attribute areas
+  BOOL IsRootLevel();
 
-	// Return the items label text
-	LPCTSTR GetLabelText();
+  // Returns the total height of the item and all its children
+  LONG GetTotalHeight();
 
-	// Set the items info (description) text
-	void SetInfoText(LPCTSTR sInfo);
+  // Set the items label text
+  void SetLabelText(LPCTSTR sLabel);
 
-	// Get the items info (description) text
-	LPCTSTR GetInfoText();
+  // Return the items label text
+  LPCTSTR GetLabelText();
 
-	// Set the item's ID
-	void SetCtrlID(UINT nCtrlID);
+  // Set the items info (description) text
+  void SetInfoText(LPCTSTR sInfo);
 
-	// Return the item's ID
-	UINT GetCtrlID();
+  // Get the items info (description) text
+  LPCTSTR GetInfoText();
 
-	// Overrideable - draw the item's non attribute area
-	virtual LONG DrawItem(CDC* pDC, const RECT& rc, LONG x, LONG y);
+  // Set the item's ID
+  void SetCtrlID(UINT nCtrlID);
 
-	// call to mark attribute changes
-	void CommitChanges();
+  // Return the item's ID
+  UINT GetCtrlID();
 
-	// call to activate item attribute
-	enum {
-		ACTIVATE_TYPE_KEYBOARD,
-		ACTIVATE_TYPE_MOUSE
-	};
-	void Activate(int activateType, CPoint point);
+  // Overrideable - draw the item's non attribute area
+  virtual LONG DrawItem(CDC* pDC, const RECT& rc, LONG x, LONG y);
 
-	//
-	// Overrideables
-	//
+  // call to mark attribute changes
+  void CommitChanges();
 
-	// The attribute area needs drawing
-	virtual void DrawAttribute(CDC* pDC, const RECT& rc);
+  // call to activate item attribute
+  enum { ACTIVATE_TYPE_KEYBOARD, ACTIVATE_TYPE_MOUSE };
+  void Activate(int activateType, CPoint point);
 
-	// Return the height of the item
-	virtual LONG GetHeight();
+  //
+  // Overrideables
+  //
 
-	// Retrieve the item's attribute value
-	virtual LPARAM GetItemValue();
+  // The attribute area needs drawing
+  virtual void DrawAttribute(CDC* pDC, const RECT& rc);
 
-	// Set the item's attribute value
-	virtual void SetItemValue(LPARAM lParam);
+  // Return the height of the item
+  virtual LONG GetHeight();
 
-	// Called when attribute area has changed size
-	virtual void OnMove();
+  // Retrieve the item's attribute value
+  virtual LPARAM GetItemValue();
 
-	// Called when the item needs to refresh its data
-	virtual void OnRefresh();
+  // Set the item's attribute value
+  virtual void SetItemValue(LPARAM lParam);
 
-	// Called when the item needs to commit its changes
-	virtual void OnCommit();
+  // Called when attribute area has changed size
+  virtual void OnMove();
 
-	// Called to activate the item
-	virtual void OnActivate(int activateType, CPoint point);
+  // Called when the item needs to refresh its data
+  virtual void OnRefresh();
 
-	//
-	// Usually only CPropTree should calls these
-	//
+  // Called when the item needs to commit its changes
+  virtual void OnCommit();
 
-	void SetPropOwner(CPropTree* pProp);
+  // Called to activate the item
+  virtual void OnActivate(int activateType, CPoint point);
 
-	// Return the location of the PropItem
-	const POINT& GetLocation();
+  //
+  // Usually only CPropTree should calls these
+  //
 
-	// TreeItem link pointer access
-	CPropTreeItem* GetParent();
-	CPropTreeItem* GetSibling();
-	CPropTreeItem* GetChild();
-	CPropTreeItem* GetNextVisible();
+  void SetPropOwner(CPropTree* pProp);
 
-	void SetParent(CPropTreeItem* pParent);
-	void SetSibling(CPropTreeItem* pSibling);
-	void SetChild(CPropTreeItem* pChild);
-	void SetNextVisible(CPropTreeItem* pVis);
+  // Return the location of the PropItem
+  const POINT& GetLocation();
 
-protected:
-	// CPropTree class that this class belongs
-	CPropTree*			m_pProp;
+  // TreeItem link pointer access
+  CPropTreeItem* GetParent();
+  CPropTreeItem* GetSibling();
+  CPropTreeItem* GetChild();
+  CPropTreeItem* GetNextVisible();
 
-	// TreeItem label name
-	CString				m_sLabel;
+  void SetParent(CPropTreeItem* pParent);
+  void SetSibling(CPropTreeItem* pSibling);
+  void SetChild(CPropTreeItem* pChild);
+  void SetNextVisible(CPropTreeItem* pVis);
 
-	// Descriptive info text
-	CString				m_sInfo;
+ protected:
+  // CPropTree class that this class belongs
+  CPropTree* m_pProp;
 
-	// TreeItem location
-	CPoint				m_loc;
+  // TreeItem label name
+  CString m_sLabel;
 
-	// TreeItem attribute size
-	CRect				m_rc;
+  // Descriptive info text
+  CString m_sInfo;
 
-	// user defined LPARAM value
-	LPARAM				m_lParam;
+  // TreeItem location
+  CPoint m_loc;
 
-	// ID of control item (should be unique)
-	UINT				m_nCtrlID;
+  // TreeItem attribute size
+  CRect m_rc;
 
-protected:
-	enum TreeItemStates
-	{
-		TreeItemSelected =		0x00000001,
-		TreeItemExpanded =		0x00000002,
-		TreeItemCheckbox =		0x00000004,
-		TreeItemChecked =		0x00000008,
-		TreeItemActivated =		0x00000010,
-		TreeItemReadOnly =		0x00000020,
-	};
+  // user defined LPARAM value
+  LPARAM m_lParam;
 
-	// TreeItem state
-	DWORD				m_dwState;
+  // ID of control item (should be unique)
+  UINT m_nCtrlID;
 
-	// TRUE if item is activated
-	BOOL				m_bActivated;
+ protected:
+  enum TreeItemStates {
+    TreeItemSelected = 0x00000001,
+    TreeItemExpanded = 0x00000002,
+    TreeItemCheckbox = 0x00000004,
+    TreeItemChecked = 0x00000008,
+    TreeItemActivated = 0x00000010,
+    TreeItemReadOnly = 0x00000020,
+  };
 
-	// TRUE if item has been commited once (activation)
-	BOOL				m_bCommitOnce;
+  // TreeItem state
+  DWORD m_dwState;
 
-	// Rectangle position of the expand button (if contains one)
-	CRect				m_rcExpand;
+  // TRUE if item is activated
+  BOOL m_bActivated;
 
-	// Rectangle position of the check box (if contains one)
-	CRect				m_rcCheckbox;
+  // TRUE if item has been commited once (activation)
+  BOOL m_bCommitOnce;
 
-	// Rectangle position of the button (if contains one)
-	CRect				m_rcButton;
+  // Rectangle position of the expand button (if contains one)
+  CRect m_rcExpand;
 
-	// link pointers
-	CPropTreeItem*		m_pParent;
-	CPropTreeItem*		m_pSibling;
-	CPropTreeItem*		m_pChild;
-	CPropTreeItem*		m_pVis;
+  // Rectangle position of the check box (if contains one)
+  CRect m_rcCheckbox;
+
+  // Rectangle position of the button (if contains one)
+  CRect m_rcButton;
+
+  // link pointers
+  CPropTreeItem* m_pParent;
+  CPropTreeItem* m_pSibling;
+  CPropTreeItem* m_pChild;
+  CPropTreeItem* m_pVis;
 };
 
-#endif // _PROPTREEITEM_H
+#endif  // _PROPTREEITEM_H

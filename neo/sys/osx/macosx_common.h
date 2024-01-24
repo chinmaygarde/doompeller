@@ -1,2 +1,1 @@
-const char *macosx_scanForLibraryDirectory(void);
-
+const char* macosx_scanForLibraryDirectory(void);

@@ -2,9 +2,9 @@
 ===========================================================================
 
 Doom 3 GPL Source Code
-Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).  
+This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
 Doom 3 Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,9 +19,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, the Doom 3 Source Code is also subject to certain additional terms.
+You should have received a copy of these additional terms immediately following
+the terms and conditions of the GNU General Public License which accompanied the
+Doom 3 Source Code.  If not, please request a copy in writing from id Software
+at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
+120, Rockville, Maryland 20850 USA.
 
 ===========================================================================
 */
@@ -29,9 +35,9 @@ If you have questions concerning this license or the applicable additional terms
 #include "../../idlib/precompiled.h"
 #pragma hdrstop
 
-#include "qe3.h"
-#include "Radiant.h"
 #include "DialogThick.h"
+#include "Radiant.h"
+#include "qe3.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -42,31 +48,26 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 // CDialogThick dialog
 
-
 CDialogThick::CDialogThick(CWnd* pParent /*=NULL*/)
-	: CDialog(CDialogThick::IDD, pParent)
-{
-	//{{AFX_DATA_INIT(CDialogThick)
-	m_bSeams = TRUE;
-	m_nAmount = 8;
-	//}}AFX_DATA_INIT
+    : CDialog(CDialogThick::IDD, pParent) {
+  //{{AFX_DATA_INIT(CDialogThick)
+  m_bSeams = TRUE;
+  m_nAmount = 8;
+  //}}AFX_DATA_INIT
 }
 
-
-void CDialogThick::DoDataExchange(CDataExchange* pDX)
-{
-	CDialog::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CDialogThick)
-	DDX_Check(pDX, IDC_CHECK_SEAMS, m_bSeams);
-	DDX_Text(pDX, IDC_EDIT_AMOUNT, m_nAmount);
-	//}}AFX_DATA_MAP
+void CDialogThick::DoDataExchange(CDataExchange* pDX) {
+  CDialog::DoDataExchange(pDX);
+  //{{AFX_DATA_MAP(CDialogThick)
+  DDX_Check(pDX, IDC_CHECK_SEAMS, m_bSeams);
+  DDX_Text(pDX, IDC_EDIT_AMOUNT, m_nAmount);
+  //}}AFX_DATA_MAP
 }
-
 
 BEGIN_MESSAGE_MAP(CDialogThick, CDialog)
-	//{{AFX_MSG_MAP(CDialogThick)
-		// NOTE: the ClassWizard will add message map macros here
-	//}}AFX_MSG_MAP
+//{{AFX_MSG_MAP(CDialogThick)
+// NOTE: the ClassWizard will add message map macros here
+//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////

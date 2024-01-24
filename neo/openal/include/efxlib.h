@@ -1,61 +1,51 @@
 /*
-*/
+ */
 
 #ifndef __EFXLIBH
 #define __EFXLIBH
 
 #include "eax4.h"
 
-
-
-
 ///////////////////////////////////////////////////////////
 // Class definitions.
-class idSoundEffect
-{
-public:
-	idSoundEffect() {
-	};
-	~idSoundEffect() { 
-		if ( data && datasize ) {
-			Mem_Free( data );
-			data = NULL;
-		}
-	}
-	
-	idStr name;
-	int datasize;
-	void *data;
+class idSoundEffect {
+ public:
+  idSoundEffect(){};
+  ~idSoundEffect() {
+    if (data && datasize) {
+      Mem_Free(data);
+      data = NULL;
+    }
+  }
+
+  idStr name;
+  int datasize;
+  void* data;
 };
 
-class idEFXFile
-{
-private:
+class idEFXFile {
+ private:
 
-protected:
-    // Protected data members.
+ protected:
+  // Protected data members.
 
-public:
-    // Public data members.
+ public:
+  // Public data members.
 
-private:
-    
-public:
-	idEFXFile();
-	~idEFXFile();
+ private:
 
-	bool FindEffect( idStr &name, idSoundEffect **effect, int *index );
-	bool ReadEffect( idLexer &lexer, idSoundEffect *effect );
-	bool LoadFile( const char *filename, bool OSPath = false );
-	void UnloadFile( void );
-	void Clear( void );
+ public:
+  idEFXFile();
+  ~idEFXFile();
 
-	idList<idSoundEffect *>effects;
+  bool FindEffect(idStr& name, idSoundEffect** effect, int* index);
+  bool ReadEffect(idLexer& lexer, idSoundEffect* effect);
+  bool LoadFile(const char* filename, bool OSPath = false);
+  void UnloadFile(void);
+  void Clear(void);
+
+  idList<idSoundEffect*> effects;
 };
 ///////////////////////////////////////////////////////////
 
-
-
-
-#endif // __EFXLIBH
-
+#endif  // __EFXLIBH

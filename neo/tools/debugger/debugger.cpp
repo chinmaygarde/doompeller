@@ -2,9 +2,9 @@
 ===========================================================================
 
 Doom 3 GPL Source Code
-Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).  
+This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
 Doom 3 Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,9 +19,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, the Doom 3 Source Code is also subject to certain additional terms.
+You should have received a copy of these additional terms immediately following
+the terms and conditions of the GNU General Public License which accompanied the
+Doom 3 Source Code.  If not, please request a copy in writing from id Software
+at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
+120, Rockville, Maryland 20850 USA.
 
 ===========================================================================
 */
@@ -33,18 +39,18 @@ If you have questions concerning this license or the applicable additional terms
 #include "DebuggerApp.h"
 #include "DebuggerServer.h"
 
-DWORD CALLBACK DebuggerThread ( LPVOID param );
+DWORD CALLBACK DebuggerThread(LPVOID param);
 
-rvDebuggerApp					gDebuggerApp;
-HWND							gDebuggerWindow = NULL;
-bool							gDebuggerSuspend = false;
-bool							gDebuggerConnnected = false;
-HANDLE							gDebuggerGameThread = NULL;
+rvDebuggerApp gDebuggerApp;
+HWND gDebuggerWindow = NULL;
+bool gDebuggerSuspend = false;
+bool gDebuggerConnnected = false;
+HANDLE gDebuggerGameThread = NULL;
 
-rvDebuggerServer*				gDebuggerServer			= NULL;
-HANDLE							gDebuggerServerThread   = NULL;
-DWORD							gDebuggerServerThreadID = 0;
-bool							gDebuggerServerQuit     = false;
+rvDebuggerServer* gDebuggerServer = NULL;
+HANDLE gDebuggerServerThread = NULL;
+DWORD gDebuggerServerThreadID = 0;
+bool gDebuggerServerQuit = false;
 
 /*
 ================
@@ -53,24 +59,21 @@ DebuggerMain
 Main entry point for the debugger application
 ================
 */
-void DebuggerClientInit( const char *cmdline )
-{	
-	// See if the debugger is already running
-	if ( rvDebuggerWindow::Activate ( ) )
-	{
-		goto DebuggerClientInitDone;
-	}
+void DebuggerClientInit(const char* cmdline) {
+  // See if the debugger is already running
+  if (rvDebuggerWindow::Activate()) {
+    goto DebuggerClientInitDone;
+  }
 
-	if ( !gDebuggerApp.Initialize ( win32.hInstance ) )
-	{
-		goto DebuggerClientInitDone;
-	}
+  if (!gDebuggerApp.Initialize(win32.hInstance)) {
+    goto DebuggerClientInitDone;
+  }
 
-	gDebuggerApp.Run ( );
+  gDebuggerApp.Run();
 
 DebuggerClientInitDone:
 
-	common->Quit();
+  common->Quit();
 }
 
 /*
@@ -81,37 +84,39 @@ Launches another instance of the running executable with +debugger appended
 to the end to indicate that the debugger should start up.
 ================
 */
-void DebuggerClientLaunch ( void )
-{
-	if ( renderSystem->IsFullScreen() ) {
-		common->Printf( "Cannot run the script debugger in fullscreen mode.\n"
-					"Set r_fullscreen to 0 and vid_restart.\n" );
-		return;
-	}
+void DebuggerClientLaunch(void) {
+  if (renderSystem->IsFullScreen()) {
+    common->Printf(
+        "Cannot run the script debugger in fullscreen mode.\n"
+        "Set r_fullscreen to 0 and vid_restart.\n");
+    return;
+  }
 
-	// See if the debugger is already running
-	if ( rvDebuggerWindow::Activate ( ) ) {
-		return;
-	}
+  // See if the debugger is already running
+  if (rvDebuggerWindow::Activate()) {
+    return;
+  }
 
-	char exeFile[MAX_PATH];
-	char curDir[MAX_PATH];
+  char exeFile[MAX_PATH];
+  char curDir[MAX_PATH];
 
-	STARTUPINFO			startup;
-	PROCESS_INFORMATION	process;
-	
-	ZeroMemory ( &startup, sizeof(startup) );
-	startup.cb = sizeof(startup);	
+  STARTUPINFO startup;
+  PROCESS_INFORMATION process;
 
-	GetCurrentDirectory ( MAX_PATH, curDir );
+  ZeroMemory(&startup, sizeof(startup));
+  startup.cb = sizeof(startup);
 
-	GetModuleFileName ( NULL, exeFile, MAX_PATH );
-	const char* s = va("%s +set fs_game %s +set fs_cdpath %s +debugger", exeFile, cvarSystem->GetCVarString( "fs_game" ), cvarSystem->GetCVarString( "fs_cdpath" ) );
-	CreateProcess ( NULL, (LPSTR)s,
-					NULL, NULL, FALSE, 0, NULL, curDir, &startup, &process );
+  GetCurrentDirectory(MAX_PATH, curDir);
 
-	CloseHandle ( process.hThread );
-	CloseHandle ( process.hProcess );
+  GetModuleFileName(NULL, exeFile, MAX_PATH);
+  const char* s = va("%s +set fs_game %s +set fs_cdpath %s +debugger", exeFile,
+                     cvarSystem->GetCVarString("fs_game"),
+                     cvarSystem->GetCVarString("fs_cdpath"));
+  CreateProcess(NULL, (LPSTR)s, NULL, NULL, FALSE, 0, NULL, curDir, &startup,
+                &process);
+
+  CloseHandle(process.hThread);
+  CloseHandle(process.hProcess);
 }
 
 /*
@@ -121,17 +126,15 @@ DebuggerServerThread
 Thread proc for the debugger server
 ================
 */
-DWORD CALLBACK DebuggerServerThread ( LPVOID param )
-{
-	assert ( gDebuggerServer );
-	
-	while ( !gDebuggerServerQuit )
-	{
-		gDebuggerServer->ProcessMessages ( );
-		Sleep ( 1 );
-	}
+DWORD CALLBACK DebuggerServerThread(LPVOID param) {
+  assert(gDebuggerServer);
 
-	return 0;
+  while (!gDebuggerServerQuit) {
+    gDebuggerServer->ProcessMessages();
+    Sleep(1);
+  }
+
+  return 0;
 }
 
 /*
@@ -141,33 +144,30 @@ DebuggerServerInit
 Starts up the debugger server
 ================
 */
-bool DebuggerServerInit ( void )
-{
-	// Dont do this if we are in the debugger already
-	if ( com_editors & EDITOR_DEBUGGER )
-	{
-		return false;
-	}
+bool DebuggerServerInit(void) {
+  // Dont do this if we are in the debugger already
+  if (com_editors & EDITOR_DEBUGGER) {
+    return false;
+  }
 
-	// Allocate the new debugger server
-	gDebuggerServer = new rvDebuggerServer;
-	if ( !gDebuggerServer )
-	{
-		return false;
-	}
-	
-	// Initialize the debugger server
-	if ( !gDebuggerServer->Initialize ( ) )
-	{
-		delete gDebuggerServer;
-		gDebuggerServer = NULL;
-		return false;
-	}
-	
-	// Start the debugger server thread
-	gDebuggerServerThread = CreateThread ( NULL, 0, DebuggerServerThread, 0, 0, &gDebuggerServerThreadID );
-	
-	return true;
+  // Allocate the new debugger server
+  gDebuggerServer = new rvDebuggerServer;
+  if (!gDebuggerServer) {
+    return false;
+  }
+
+  // Initialize the debugger server
+  if (!gDebuggerServer->Initialize()) {
+    delete gDebuggerServer;
+    gDebuggerServer = NULL;
+    return false;
+  }
+
+  // Start the debugger server thread
+  gDebuggerServerThread = CreateThread(NULL, 0, DebuggerServerThread, 0, 0,
+                                       &gDebuggerServerThreadID);
+
+  return true;
 }
 
 /*
@@ -177,26 +177,24 @@ DebuggerServerShutdown
 Shuts down the debugger server
 ================
 */
-void DebuggerServerShutdown ( void )
-{
-	if ( gDebuggerServerThread )
-	{
-		// Signal the debugger server to quit
-		gDebuggerServerQuit = true;
-		
-		// Wait for the thread to finish
-		WaitForSingleObject ( gDebuggerServerThread, INFINITE );
-		
-		// Shutdown the server now
-		gDebuggerServer->Shutdown();
+void DebuggerServerShutdown(void) {
+  if (gDebuggerServerThread) {
+    // Signal the debugger server to quit
+    gDebuggerServerQuit = true;
 
-		delete gDebuggerServer;
-		gDebuggerServer = NULL;
-		
-		// Cleanup the thread handle
-		CloseHandle ( gDebuggerServerThread );
-		gDebuggerServerThread = NULL;
-	}
+    // Wait for the thread to finish
+    WaitForSingleObject(gDebuggerServerThread, INFINITE);
+
+    // Shutdown the server now
+    gDebuggerServer->Shutdown();
+
+    delete gDebuggerServer;
+    gDebuggerServer = NULL;
+
+    // Cleanup the thread handle
+    CloseHandle(gDebuggerServerThread);
+    gDebuggerServerThread = NULL;
+  }
 }
 
 /*
@@ -206,14 +204,14 @@ DebuggerServerCheckBreakpoint
 Check to see if there is a breakpoint associtated with this statement
 ================
 */
-void DebuggerServerCheckBreakpoint ( idInterpreter* interpreter, idProgram* program, int instructionPointer )
-{
-	if ( !gDebuggerServer )
-	{
-		return;
-	}
-	
-	gDebuggerServer->CheckBreakpoints ( interpreter, program, instructionPointer );
+void DebuggerServerCheckBreakpoint(idInterpreter* interpreter,
+                                   idProgram* program,
+                                   int instructionPointer) {
+  if (!gDebuggerServer) {
+    return;
+  }
+
+  gDebuggerServer->CheckBreakpoints(interpreter, program, instructionPointer);
 }
 
 /*
@@ -223,13 +221,10 @@ DebuggerServerPrint
 Sends a print message to the debugger client
 ================
 */
-void DebuggerServerPrint ( const char* text )
-{
-	if ( !gDebuggerServer )
-	{
-		return;
-	}
-	
-	gDebuggerServer->Print ( text );
-}
+void DebuggerServerPrint(const char* text) {
+  if (!gDebuggerServer) {
+    return;
+  }
 
+  gDebuggerServer->Print(text);
+}

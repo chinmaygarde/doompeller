@@ -27,14 +27,13 @@ __END_DECLS
 
 /* Configure Socket Factories */
 
-void GUSISetupFactories()
-{
+void GUSISetupFactories() {
 #ifdef GUSISetupFactories_BeginHook
-	GUSISetupFactories_BeginHook
+  GUSISetupFactories_BeginHook
 #endif
-	GUSIwithInetSockets();
+  GUSIwithInetSockets();
 #ifdef GUSISetupFactories_EndHook
-	GUSISetupFactories_EndHook
+  GUSISetupFactories_EndHook
 #endif
 }
 
@@ -47,14 +46,13 @@ __END_DECLS
 
 /* Configure File Devices */
 
-void GUSISetupDevices()
-{
+void GUSISetupDevices() {
 #ifdef GUSISetupDevices_BeginHook
-	GUSISetupDevices_BeginHook
+  GUSISetupDevices_BeginHook
 #endif
-	GUSIwithNullSockets();
+  GUSIwithNullSockets();
 #ifdef GUSISetupDevices_EndHook
-	GUSISetupDevices_EndHook
+  GUSISetupDevices_EndHook
 #endif
 }
 
@@ -62,18 +60,15 @@ void GUSISetupDevices()
 #error GUSISetupConfig() needs to be written in C++
 #endif
 
-GUSIConfiguration::FileSuffix	sSuffices[] = {
-	"", '????', '????'
-};
+GUSIConfiguration::FileSuffix sSuffices[] = {"", '????', '????'};
 
-extern "C" void GUSISetupConfig()
-{
-	GUSIConfiguration * config =
-		GUSIConfiguration::CreateInstance(GUSIConfiguration::kNoResource);
+extern "C" void GUSISetupConfig() {
+  GUSIConfiguration* config =
+      GUSIConfiguration::CreateInstance(GUSIConfiguration::kNoResource);
 
-	config->ConfigureDefaultTypeCreator('TEXT', 'CWIE');
-	config->ConfigureSuffices(
-		sizeof(sSuffices)/sizeof(GUSIConfiguration::FileSuffix)-1, sSuffices);
+  config->ConfigureDefaultTypeCreator('TEXT', 'CWIE');
+  config->ConfigureSuffices(
+      sizeof(sSuffices) / sizeof(GUSIConfiguration::FileSuffix) - 1, sSuffices);
 }
 
 /**************** END GUSI CONFIGURATION *************************/

@@ -2,3 +2,4 @@ neo/sys/osx/build/
 xcuserdata
 /build/
 /.cache/
+.DS_Store

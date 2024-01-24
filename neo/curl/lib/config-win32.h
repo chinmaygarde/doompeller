@@ -223,7 +223,8 @@
 /*************************************************
  * This section is for compiler specific defines.*
  *************************************************/
-#if defined(MINGW32) || defined(__WATCOMC__) /* Borland and MS don't have this */
+#if defined(MINGW32) || \
+    defined(__WATCOMC__) /* Borland and MS don't have this */
 
 /* Define if you have the <unistd.h> header file.  */
 #define HAVE_UNISTD_H 1

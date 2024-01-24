@@ -2,9 +2,9 @@
 ===========================================================================
 
 Doom 3 GPL Source Code
-Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company. 
+Copyright (C) 1999-2011 id Software LLC, a ZeniMax Media company.
 
-This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).  
+This file is part of the Doom 3 GPL Source Code (?Doom 3 Source Code?).
 
 Doom 3 Source Code is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -19,9 +19,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Doom 3 Source Code.  If not, see <http://www.gnu.org/licenses/>.
 
-In addition, the Doom 3 Source Code is also subject to certain additional terms. You should have received a copy of these additional terms immediately following the terms and conditions of the GNU General Public License which accompanied the Doom 3 Source Code.  If not, please request a copy in writing from id Software at the address below.
+In addition, the Doom 3 Source Code is also subject to certain additional terms.
+You should have received a copy of these additional terms immediately following
+the terms and conditions of the GNU General Public License which accompanied the
+Doom 3 Source Code.  If not, please request a copy in writing from id Software
+at the address below.
 
-If you have questions concerning this license or the applicable additional terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite 120, Rockville, Maryland 20850 USA.
+If you have questions concerning this license or the applicable additional
+terms, you may contact in writing id Software LLC, c/o ZeniMax Media Inc., Suite
+120, Rockville, Maryland 20850 USA.
 
 ===========================================================================
 */
@@ -37,60 +43,61 @@ class idUserInterfaceLocal;
 class idSliderWindow;
 
 class idEditWindow : public idWindow {
-public:
-						idEditWindow(idUserInterfaceLocal *gui);
-						idEditWindow(idDeviceContext *d, idUserInterfaceLocal *gui);
-	virtual 			~idEditWindow();
+ public:
+  idEditWindow(idUserInterfaceLocal* gui);
+  idEditWindow(idDeviceContext* d, idUserInterfaceLocal* gui);
+  virtual ~idEditWindow();
 
-	virtual void		Draw( int time, float x, float y );
-	virtual const char *HandleEvent( const sysEvent_t *event, bool *updateVisuals );
-	virtual void		PostParse();
-	virtual void		GainFocus();
-	virtual size_t		Allocated(){return idWindow::Allocated();};
-	
-	virtual idWinVar *	GetWinVarByName(const char *_name, bool winLookup = false, drawWin_t** owner = NULL );
-	
-	virtual void 		HandleBuddyUpdate(idWindow *buddy);
-	virtual void		Activate(bool activate, idStr &act);
-	
-	void				RunNamedEvent( const char* eventName );
-	
-private:
+  virtual void Draw(int time, float x, float y);
+  virtual const char* HandleEvent(const sysEvent_t* event, bool* updateVisuals);
+  virtual void PostParse();
+  virtual void GainFocus();
+  virtual size_t Allocated() { return idWindow::Allocated(); };
 
-	virtual bool		ParseInternalVar(const char *name, idParser *src);
+  virtual idWinVar* GetWinVarByName(const char* _name,
+                                    bool winLookup = false,
+                                    drawWin_t** owner = NULL);
 
-	void				InitCvar();
-						// true: read the updated cvar from cvar system
-						// false: write to the cvar system
-						// force == true overrides liveUpdate 0
-	void				UpdateCvar( bool read, bool force = false );
-	
-	void				CommonInit();
-	void				EnsureCursorVisible();
-	void				InitScroller( bool horizontal );
-	
-	int					maxChars;
-	int					paintOffset;
-	int					cursorPos;
-	int					cursorLine;
-	int					cvarMax;
-	bool				wrap;
-	bool				readonly;
-	bool				numeric;
-	idStr				sourceFile;
-	idSliderWindow *	scroller;
-	idList<int>			breaks;
-	float				sizeBias;
-	int					textIndex;
-	int					lastTextLength;
-	bool				forceScroll;	
-	idWinBool			password;
+  virtual void HandleBuddyUpdate(idWindow* buddy);
+  virtual void Activate(bool activate, idStr& act);
 
-	idWinStr			cvarStr;
-	idCVar *			cvar;
+  void RunNamedEvent(const char* eventName);
 
-	idWinBool			liveUpdate;
-	idWinStr			cvarGroup;
+ private:
+  virtual bool ParseInternalVar(const char* name, idParser* src);
+
+  void InitCvar();
+  // true: read the updated cvar from cvar system
+  // false: write to the cvar system
+  // force == true overrides liveUpdate 0
+  void UpdateCvar(bool read, bool force = false);
+
+  void CommonInit();
+  void EnsureCursorVisible();
+  void InitScroller(bool horizontal);
+
+  int maxChars;
+  int paintOffset;
+  int cursorPos;
+  int cursorLine;
+  int cvarMax;
+  bool wrap;
+  bool readonly;
+  bool numeric;
+  idStr sourceFile;
+  idSliderWindow* scroller;
+  idList<int> breaks;
+  float sizeBias;
+  int textIndex;
+  int lastTextLength;
+  bool forceScroll;
+  idWinBool password;
+
+  idWinStr cvarStr;
+  idCVar* cvar;
+
+  idWinBool liveUpdate;
+  idWinStr cvarGroup;
 };
 
 #endif /* !__EDITWINDOW_H__ */

@@ -5,50 +5,50 @@
 #pragma once
 #endif
 
+// #include "PropTreeItem.h"
+// #include "PropTreeItemEdit.h"
 
-//#include "PropTreeItem.h"
-//#include "PropTreeItemEdit.h"
+class PROPTREE_API CPropTreeItemFileEdit : public CPropTreeItemEdit {
+  // Construction
 
-class PROPTREE_API CPropTreeItemFileEdit : public CPropTreeItemEdit
-{
-	// Construction
-public:
-	CPropTreeItemFileEdit();
-	virtual ~CPropTreeItemFileEdit();
+ public:
+  CPropTreeItemFileEdit();
+  virtual ~CPropTreeItemFileEdit();
 
-	// Operations
-public:
+  // Operations
 
-	// Overrides
-	// ClassWizard generated virtual function overrides
-	//{{AFX_VIRTUAL(CPropTreeItemFileEdit)
-	//}}AFX_VIRTUAL
+ public:
+  // Overrides
+  // ClassWizard generated virtual function overrides
+  //{{AFX_VIRTUAL(CPropTreeItemFileEdit)
+  //}}AFX_VIRTUAL
 
-	// Implementation
-public:
+  // Implementation
 
-	// Generated message map functions
-protected:
-	//{{AFX_MSG(CPropTreeItemFileEdit)
-	//}}AFX_MSG
+ public:
+  // Generated message map functions
 
-	afx_msg void 				OnInsertFile();
-	afx_msg void 				OnEditUndo();
-	afx_msg void 				OnEditCut();
-	afx_msg void 				OnEditCopy();
-	afx_msg void 				OnEditPaste();
-	afx_msg void 				OnEditDelete();
-	afx_msg void 				OnEditSelectAll();
+ protected:
+  //{{AFX_MSG(CPropTreeItemFileEdit)
+  //}}AFX_MSG
 
-	DECLARE_MESSAGE_MAP()
-public:
-	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+  afx_msg void OnInsertFile();
+  afx_msg void OnEditUndo();
+  afx_msg void OnEditCut();
+  afx_msg void OnEditCopy();
+  afx_msg void OnEditPaste();
+  afx_msg void OnEditDelete();
+  afx_msg void OnEditSelectAll();
+
+  DECLARE_MESSAGE_MAP()
+
+ public:
+  afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
+  afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
 //{{AFX_INSERT_LOCATION}}
 
-
-#endif 
+#endif
