@@ -1,3 +1,4 @@
 neo/sys/osx/build/
 xcuserdata
 /build/
+/.cache/

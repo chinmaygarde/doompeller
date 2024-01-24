@@ -235,3 +235,9 @@ add_executable(doompeller
   neo/ui/Window.cpp
   neo/ui/Winvar.cpp
 )
+
+target_compile_options(doompeller
+  PRIVATE
+    -Wno-deprecated-declarations
+)
+

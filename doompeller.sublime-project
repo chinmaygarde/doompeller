@@ -1,0 +1,35 @@
+{
+  "build_systems": [
+    {
+      "name": "Doompeller Build All",
+      "shell_cmd": "ninja",
+      "working_dir": "${project_path}/build",
+      "file_regex": "(.*):(\\d+):(\\d+)(.*)",
+      "shell": true,
+    }
+  ],
+  "folders": [
+    {
+      "path": ".",
+      "name": "Doompeller",
+    }
+  ],
+  "settings":
+  {
+    "LSP":
+    {
+      "clangd":
+      {
+        "enabled": true,
+        "command": [
+          "clangd",
+          "--compile-commands-dir=build",
+          "--clang-tidy",
+          "--header-insertion=never",
+          "-j=36",
+          "--background-index=true"
+        ],
+      },
+    },
+  },
+}
